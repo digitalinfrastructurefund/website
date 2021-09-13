@@ -9,13 +9,12 @@
 
 ## 🚀 Quick start
 
-1.  **Create a Gatsby site.**
+1.  **Install Dependencies.**
 
-    Use the Gatsby CLI to create a new site, specifying the minimal starter.
+    Install all required dependencies
 
     ```shell
-    # create a new Gatsby site using the minimal starter
-    npm init gatsby
+    npm install
     ```
 
 2.  **Start developing.**
@@ -23,8 +22,7 @@
     Navigate into your new site’s directory and start it up.
 
     ```shell
-    cd my-gatsby-site/
-    npm run develop
+     npm run develop
     ```
 
 3.  **Open the code and start customizing!**

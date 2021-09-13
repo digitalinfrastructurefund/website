@@ -1,12 +1,15 @@
 import "@fontsource/urbanist";
 import * as React from "react";
-import Footer from "./Footer";
+import { Helmet } from "react-helmet";
 
+import Footer from "./Footer";
 import Header from "./Header";
 
-const Layout = ({ children }) => (
+const Layout = ({ title, children }) => (
   <>
-    <title>Homepage</title>
+    <Helmet>
+      <title>{title}</title>
+    </Helmet>
     <main>
       <Header />
       {children}
@@ -14,5 +17,9 @@ const Layout = ({ children }) => (
     </main>
   </>
 );
+
+Layout.defaultProps = {
+  title: "Digital • Infrastructure • Fund",
+};
 
 export default Layout;

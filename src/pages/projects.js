@@ -1,14 +1,6 @@
 import "@fontsource/urbanist";
 import * as React from "react";
-import {
-  Box,
-  Button,
-  Flex,
-  SimpleGrid,
-  Stack,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Stack, Text, VStack } from "@chakra-ui/react";
 
 /**
  * Images

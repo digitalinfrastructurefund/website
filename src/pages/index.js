@@ -35,7 +35,7 @@ import Section from "../components/Section";
 // markup
 const IndexPage = () => {
   return (
-    <Layout>
+    <Layout title='Digital • Infrastructure • Fund'>
       <Flex
         flexDirection='column'
         px={{
