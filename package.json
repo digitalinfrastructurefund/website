@@ -15,8 +15,15 @@
     "clean": "gatsby clean"
   },
   "dependencies": {
+    "@chakra-ui/gatsby-plugin": "^2.0.1",
+    "@chakra-ui/icons": "^1.0.15",
+    "@chakra-ui/react": "^1.6.6",
+    "@emotion/react": "^11.4.1",
+    "@emotion/styled": "^11.3.0",
+    "@fontsource/urbanist": "^4.5.1",
     "@mdx-js/mdx": "^1.6.22",
     "@mdx-js/react": "^1.6.22",
+    "framer-motion": "^4.1.17",
     "gatsby": "^3.12.1",
     "gatsby-plugin-google-analytics": "^3.12.0",
     "gatsby-plugin-image": "^1.12.0",
@@ -29,6 +36,7 @@
     "gatsby-transformer-sharp": "^3.12.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-helmet": "^6.1.0"
+    "react-helmet": "^6.1.0",
+    "react-icons": "^4.2.0"
   }
 }
