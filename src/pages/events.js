@@ -9,19 +9,35 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-
+import dayjs from "dayjs";
+import { graphql } from "gatsby";
 /**
  * Images
  */
-import eventCover from "../images/event-cover.png";
 import PostImageMD from "../images/post-md.png";
 
 import Layout from "../components/Layout";
 import Subscription from "../components/Subscription";
 
-const EventsPage = () => {
+import EventCard from "../components/EventCard";
+
+const EventsPage = ({ data }) => {
+  // const events = data.dataJson.events;
+  // const nearestEvent = events.reduce((earliestEvent, event) => {
+  //   const eventDate = dayjs(event.date);
+  //   const currentDate = dayjs();
+  //   if (eventDate.isBefore(currentDate)) {
+  //     return earliestEvent;
+  //   } else if (earliestEvent && dayjs(earliestEvent.date).isBefore(eventDate)) {
+  //     return earliestEvent;
+  //   }
+  //   return event;
+  // }, undefined);
+
+  // const lastEvent = events[events.length - 1];
+
   return (
-    <Layout>
+    <Layout title='Events'>
       <Flex
         px={{ base: "16px", sm: "32px" }}
         justifyContent={{ md: "flex-start", lg: "center" }}
@@ -129,9 +145,14 @@ const EventsPage = () => {
           my='40px'
           width={{ lg: "1088px" }}
         >
-          <EventCard />
-          <EventCard />
-          <EventCard />
+          {/* {events.map((event) => (
+            <EventCard
+              key={event.id}
+              title={event.title}
+              description={event.description}
+              date={event.date}
+            />
+          ))} */}
         </SimpleGrid>
       </Flex>
       <Flex px={{ base: "16px" }} my={{ lg: "100px" }} justifyContent='center'>
@@ -141,45 +162,17 @@ const EventsPage = () => {
   );
 };
 
-export const EventCard = () => (
-  <Box
-    width={{ base: "288px", md: "340px" }}
-    borderRadius='24px'
-    boxShadow=' 0px 1px 4px 1px rgba(49, 50, 51, 0.1)'
-  >
-    <Box
-      width='100%'
-      borderTopRadius='24px'
-      backgroundImage={`url(${eventCover})`}
-      backgroundSize='cover'
-      backgroundRepeat='no-repeat'
-      h='120px'
-      display='flex'
-      justifyContent='flex-end'
-      alignItems='center'
-    >
-      <Box bg='secondaryLime' px='16px' py='9px' borderLeftRadius='24px'>
-        <Text textStyle='buttonLabel' color='primaryDarkGrey'>
-          NEXT EVENT
-        </Text>
-      </Box>
-    </Box>
-    <Box padding='24px'>
-      <Text textStyle='paragraph-2' color='neutralTint-600'>
-        June 22nd 4pm UTC
-      </Text>
-      <Text as='h3' textStyle='subHeading' my='12px' color='neutralTint'>
-        Digital Infrastructure Community Call
-      </Text>
-      <Text textStyle='paragraph-1' color='neutralTint-600' mb='20px'>
-        Regular, open call for digital infrastructure project updates, news,
-        questions and goings on.
-      </Text>
-      <Button width='100%' variant='primary'>
-        Add to calendar
-      </Button>
-    </Box>
-  </Box>
-);
+// export const query = graphql`
+//   query {
+//     dataJson {
+//       events {
+//         id
+//         title
+//         date
+//         description
+//       }
+//     }
+//   }
+// `;
 
 export default EventsPage;

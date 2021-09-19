@@ -1,0 +1,87 @@
+[
+  {
+    "id": 1,
+    "coverImage": "./event-1.png",
+    "title": "Digital Infrastructure Community Call",
+    "date": "2021-03-06T00:00:00.000Z",
+    "description": "Regular, open call for digital infrastructure project updates, news, questions and goings on."
+  },
+  {
+    "id": 2,
+    "title": "Digital Infrastructure Community Call",
+    "date": "2021-11-11T00:00:00.000Z",
+    "description": "Regular, open call for digital infrastructure project updates, news, questions and goings on."
+  },
+  {
+    "id": 3,
+    "title": "Digital Infrastructure Community Call",
+    "date": "2021-11-10T00:00:00.000Z",
+    "description": "Regular, open call for digital infrastructure project updates, news, questions and goings on."
+  },
+  {
+    "id": 4,
+    "title": "Digital Infrastructure Community Call",
+    "date": "2021-11-10T00:00:00.000Z",
+    "description": "Regular, open call for digital infrastructure project updates, news, questions and goings on."
+  },
+  {
+    "id": 5,
+    "title": "Digital Infrastructure Community Call",
+    "date": "2021-11-10T00:00:00.000Z",
+    "description": "Regular, open call for digital infrastructure project updates, news, questions and goings on."
+  },
+  {
+    "id": 6,
+    "title": "Digital Infrastructure Community Call",
+    "date": "2021-11-10T00:00:00.000Z",
+    "description": "Regular, open call for digital infrastructure project updates, news, questions and goings on."
+  },
+  {
+    "id": 7,
+    "title": "Digital Infrastructure Community Call",
+    "date": "2021-11-10T00:00:00.000Z",
+    "description": "Regular, open call for digital infrastructure project updates, news, questions and goings on."
+  },
+  {
+    "id": 8,
+    "title": "Digital Infrastructure Community Call",
+    "date": "2021-11-10T00:00:00.000Z",
+    "description": "Regular, open call for digital infrastructure project updates, news, questions and goings on."
+  },
+  {
+    "id": 9,
+    "title": "Digital Infrastructure Community Call",
+    "date": "2021-11-10T00:00:00.000Z",
+    "description": "Regular, open call for digital infrastructure project updates, news, questions and goings on."
+  },
+  {
+    "id": 10,
+    "title": "Digital Infrastructure Community Call",
+    "date": "2021-11-10T00:00:00.000Z",
+    "description": "Regular, open call for digital infrastructure project updates, news, questions and goings on."
+  },
+  {
+    "id": 11,
+    "title": "Digital Infrastructure Community Call",
+    "date": "2021-11-10T00:00:00.000Z",
+    "description": "Regular, open call for digital infrastructure project updates, news, questions and goings on."
+  },
+  {
+    "id": 12,
+    "title": "Digital Infrastructure Community Call",
+    "date": "2021-11-10T00:00:00.000Z",
+    "description": "Regular, open call for digital infrastructure project updates, news, questions and goings on."
+  },
+  {
+    "id": 13,
+    "title": "Digital Infrastructure Community Call",
+    "date": "2021-11-10T00:00:00.000Z",
+    "description": "Regular, open call for digital infrastructure project updates, news, questions and goings on."
+  },
+  {
+    "id": 14,
+    "title": "Digital Infrastructure Community Call",
+    "date": "2021-11-10T00:00:00.000Z",
+    "description": "Regular, open call for digital infrastructure project updates, news, questions and goings on."
+  }
+]
