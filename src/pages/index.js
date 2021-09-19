@@ -6,13 +6,13 @@ import {
   HStack,
   Image,
   Input,
-  Link,
   Stack,
   Text,
   Textarea,
   VStack,
+  Link as ChakraLink,
 } from "@chakra-ui/react";
-import { BsArrowLeftShort, BsArrowRightShort } from "react-icons/bs";
+import { graphql, Link } from "gatsby";
 
 /**
  * Image files
@@ -20,20 +20,29 @@ import { BsArrowLeftShort, BsArrowRightShort } from "react-icons/bs";
 import digitalInfrastructureIllustration from "../images/digital-infrastructure-sm.png";
 import digitalInfrastructureIllustrationMd from "../images/digital-infrastructure-md.png";
 import digitalInfrastructureIllustrationLg from "../images/digital-infrastructure-lg.png";
-import contactUsBgIllustration from "../images/contactus-bg-illustration.png";
+import contactUsBgIllustration from "../images/contactus-illustration.png";
 import openCollectiveLogo from "../images/opencollective-logo.png";
 import mozillaLogo from "../images/mozilla-logo.png";
+import omidyarNetwork from "../images/on-logo.png";
 import logo2 from "../images/logo-2.png";
+import openSocietyLogo from "../images/open-society-logo.png";
 import Layout from "../components/Layout";
-import { EventCard } from "./events";
-import { UpdateCard } from "./updates";
 import Subscription from "../components/Subscription";
-import { ResourceCard } from "./resources";
-import FeaturedProject from "../components/FeaturedProject";
+import FeaturedProjects from "../components/FeaturedProjects";
 import Section from "../components/Section";
+import EventCard from "../components/EventCard";
+import UpdateCard from "../components/UpdateCard";
+import { getAllResources } from "../lib/util";
+import ResourcesCard from "../components/ResourceCard";
 
 // markup
-const IndexPage = () => {
+const IndexPage = ({ data }) => {
+  const { updateData, projectData, allIndexJson, resourcesData } = data;
+  const events = allIndexJson.eventData;
+  const updates = updateData.updates;
+  const projects = projectData.projects;
+  const resourcesNodes = resourcesData.nodes;
+
   return (
     <Layout title='Digital • Infrastructure • Fund'>
       <Flex
@@ -91,7 +100,9 @@ const IndexPage = () => {
             lg: "1080px",
           }}
         />
-        <Button variant='primary'>see latest updates</Button>
+        <Button as={Link} to='/updates/' variant='primary'>
+          see latest updates
+        </Button>
       </Flex>
       <Flex
         mt='40px'
@@ -174,7 +185,12 @@ const IndexPage = () => {
             </Text>
           </VStack>
         </Flex>
-        <Button variant='primary' my={{ base: "16px", lg: "40px" }}>
+        <Button
+          as={ChakraLink}
+          href='#contactUs'
+          variant='primary'
+          my={{ base: "16px", lg: "40px" }}
+        >
           Contact us
         </Button>
       </Flex>
@@ -188,8 +204,9 @@ const IndexPage = () => {
           spacing='24px'
           alignSelf='stretch'
         >
-          <EventCard />
-          <EventCard />
+          {events.map(({ event }) => (
+            <EventCard key={event.id} {...event} />
+          ))}
         </Stack>
       </Section>
       {/* Updates */}
@@ -201,8 +218,9 @@ const IndexPage = () => {
           spacing='24px'
           alignSelf='stretch'
         >
-          <UpdateCard />
-          <UpdateCard />
+          {updates.map((update, index) => (
+            <UpdateCard {...update} key={index.toString()} />
+          ))}
         </Stack>
       </Section>
       {/* Subscription */}
@@ -212,22 +230,7 @@ const IndexPage = () => {
       {/* Projects */}
       <Section title='Projects' linkText='view all projects' link='/projects/'>
         <Flex flexDirection='column'>
-          <FeaturedProject />
-          <HStack
-            justifyContent='center'
-            my={{ base: "24px", lg: "" }}
-            spacing='36px'
-          >
-            <Button variant='outline' borderRadius='100%' size='64px'>
-              <BsArrowLeftShort size='22px' />
-            </Button>
-            <Text textStyle='paragraph-2' color='secondaryMidGray'>
-              1/13
-            </Text>
-            <Button variant='outline' borderRadius='100%' size='64px'>
-              <BsArrowRightShort size='22px' />
-            </Button>
-          </HStack>
+          <FeaturedProjects projects={projects} />
         </Flex>
       </Section>
       {/* Resources */}
@@ -257,8 +260,11 @@ const IndexPage = () => {
           spacing='24px'
           alignSelf='stretch'
         >
-          <ResourceCard />
-          <ResourceCard />
+          {getAllResources(resourcesNodes)
+            .slice(0, 3)
+            .map((resource, index) => (
+              <ResourcesCard {...resource} key={index.toString()} />
+            ))}
         </Stack>
       </Section>
 
@@ -300,9 +306,11 @@ const IndexPage = () => {
           </Text>
         </VStack>
         <HStack my='35px' spacing='36px'>
+          <Image h='73px' w='73px' src={openSocietyLogo} />
           <Image h='73px' w='73px' src={openCollectiveLogo} />
           <Image src={logo2} h='73px' w='73px' />
           <Image src={mozillaLogo} h='73px' w='73px' />
+          <Image src={omidyarNetwork} h='73px' w='73px' />
         </HStack>
       </Flex>
       <Flex
@@ -310,6 +318,7 @@ const IndexPage = () => {
         flexDir='column'
         alignItems='center'
         my={{ base: "32px", md: "100px" }}
+        id='contactUs'
       >
         <Box position='relative'>
           <Box
@@ -319,12 +328,13 @@ const IndexPage = () => {
               lg: `url(${contactUsBgIllustration})`,
             }}
             backgroundRepeat='no-repeat'
-            backgroundSize='420px 363px'
+            backgroundSize='contain'
             backgroundPosition='-20px -30px'
-            w='420px'
-            h='363px'
+            w='410px'
+            h='396px'
             zIndex='111'
-            right='-110px'
+            right='-90px'
+            top='-50px'
           />
           <Box
             padding={{ base: "16px", md: "32px 64px", lg: "90px 96px 68px" }}
@@ -360,12 +370,9 @@ const IndexPage = () => {
                 alignSelf='stretch'
                 spacing={{ base: "16px", lg: "40px" }}
               >
-                <VStack
-                  alignItems='flex-start'
-                  w={{ base: "100%", lg: "240px" }}
-                >
+                <VStack alignItems='flex-start' w={{ base: "100%" }}>
                   <Text textStyle='inputLabel' color='neutralTint'>
-                    Name
+                    Your name
                   </Text>
                   <Input
                     bg='white'
@@ -374,10 +381,7 @@ const IndexPage = () => {
                     placeholder='Full Name'
                   />
                 </VStack>
-                <VStack
-                  alignItems='flex-start'
-                  w={{ base: "100%", lg: "240px" }}
-                >
+                <VStack alignItems='flex-start' w={{ base: "100%" }}>
                   <Text textStyle='inputLabel' color='neutralTint'>
                     Email
                   </Text>
@@ -389,7 +393,7 @@ const IndexPage = () => {
                   />
                 </VStack>
               </Stack>
-              <VStack alignItems='flex-start' w={{ base: "100%", lg: "616px" }}>
+              <VStack alignItems='flex-start' w={{ base: "100%" }}>
                 <Text textStyle='inputLabel' color='neutralTint'>
                   Message
                 </Text>
@@ -399,9 +403,11 @@ const IndexPage = () => {
                   placeholder='Enter your message'
                   border='1px solid #DCDEE0 '
                   boxShadow='0px 2px 0px 0px #3132330D inset'
+                  minH='132px'
+                  p='16px'
                 />
               </VStack>
-              <Button w={{ base: "100%", lg: "616px" }} variant='primary'>
+              <Button w={{ base: "100%", lg: "209px" }} variant='primary'>
                 Send message
               </Button>
             </VStack>
@@ -411,5 +417,79 @@ const IndexPage = () => {
     </Layout>
   );
 };
+
+export const IndexPageQuery = graphql`
+  query {
+    updateData: allMdx(
+      filter: { frontmatter: { type: { eq: "update" } } }
+      sort: { fields: frontmatter___date, order: DESC }
+      limit: 2
+    ) {
+      updates: nodes {
+        frontmatter {
+          title
+          author
+          date
+          path
+          type
+          coverImage {
+            publicURL
+          }
+        }
+        excerpt(pruneLength: 72, truncate: true)
+      }
+    }
+    projectData: allMdx(
+      filter: { frontmatter: { type: { eq: "project" } } }
+      sort: { fields: frontmatter___date, order: DESC }
+      limit: 10
+    ) {
+      projects: nodes {
+        frontmatter {
+          title
+          author
+          date
+          description
+          path
+          type
+          coverImage {
+            publicURL
+          }
+        }
+        excerpt
+      }
+    }
+    allIndexJson(limit: 3) {
+      eventData: edges {
+        event: node {
+          id
+          description
+          date
+          title
+          coverImage {
+            publicURL
+          }
+        }
+      }
+    }
+
+    resourcesData: allMdx(
+      filter: { exports: { resources: { elemMatch: { title: { ne: null } } } } }
+      sort: { fields: frontmatter___date, order: DESC }
+    ) {
+      nodes {
+        exports {
+          resources {
+            author
+            link
+            linkText
+            quote
+            title
+          }
+        }
+      }
+    }
+  }
+`;
 
 export default IndexPage;

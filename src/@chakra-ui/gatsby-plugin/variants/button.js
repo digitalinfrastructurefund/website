@@ -4,6 +4,9 @@ export const buttonVariants = {
       _focus: {
         shadow: "none",
       },
+      _hover: {
+        textDecoration: "none",
+      },
     },
     variants: {
       primary: {

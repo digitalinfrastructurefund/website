@@ -8,7 +8,9 @@ import Header from "./Header";
 const Layout = ({ title, children }) => (
   <>
     <Helmet>
-      <title>{title}</title>
+      <title>
+        {title ? `${title} | ` : ""} Digital • Infrastructure • Fund
+      </title>
     </Helmet>
     <main>
       <Header />
