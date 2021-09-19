@@ -9,7 +9,6 @@ import UpdateCard from "../../components/UpdateCard";
 import { formatDate } from "../../lib/date";
 
 const UpdatesPage = ({ data }) => {
-  console.log(data);
   const { updateData } = data;
   const updates = updateData.updates;
 
@@ -103,8 +102,8 @@ const UpdatesPage = ({ data }) => {
           my='40px'
           width={{ lg: "1088px" }}
         >
-          {updates.map((update, index) => (
-            <UpdateCard {...update} key={index.toString()} />
+          {updates.map((update) => (
+            <UpdateCard {...update} key={update.id} />
           ))}
         </SimpleGrid>
       </Flex>
@@ -134,6 +133,7 @@ export const updatesQuery = graphql`
           }
         }
         slug
+        id
         excerpt(pruneLength: 72, truncate: true)
       }
     }
