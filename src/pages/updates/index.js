@@ -1,25 +1,20 @@
 import "@fontsource/urbanist";
 import * as React from "react";
-import {
-  Box,
-  Button,
-  Flex,
-  Image,
-  SimpleGrid,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+import { Box, Flex, Image, SimpleGrid, Text, VStack } from "@chakra-ui/react";
+import { graphql } from "gatsby";
 
-/**
- * Images
- */
-import updateCardCover from "../images/update-card-cover.png";
-import PostImageMD from "../images/post-md.png";
+import Layout from "../../components/Layout";
+import Subscription from "../../components/Subscription";
+import UpdateCard from "../../components/UpdateCard";
+import { formatDate } from "../../lib/date";
 
-import Layout from "../components/Layout";
-import Subscription from "../components/Subscription";
+const UpdatesPage = ({ data }) => {
+  console.log(data);
+  const { updateData } = data;
+  const updates = updateData.updates;
 
-const UpdatesPage = () => {
+  const featuredUpdate = updates[0];
+
   return (
     <Layout>
       <Flex
@@ -64,27 +59,29 @@ const UpdatesPage = () => {
           justifyContent={{ lg: "center" }}
           width={{ lg: "1088px" }}
         >
-          <Image
-            w={{ md: "704px", lg: "520px" }}
-            h='400px'
-            src={PostImageMD}
-            alt='Update laptop image'
-            mb='32px'
-          />
+          {featuredUpdate.frontmatter.coverImage && (
+            <Image
+              w={{ md: "704px", lg: "520px" }}
+              h='400px'
+              src={featuredUpdate.frontmatter.coverImage.publicURL}
+              alt='Update laptop image'
+              mb='32px'
+              borderRadius='24px'
+            />
+          )}
           <Box ml={{ lg: "24px" }}>
             <Text textStyle='subHeading' color='primaryBlue'>
               Latest Update
             </Text>
             <Text textStyle='smallHeader' mt='32px' color='primaryDarkGrey'>
-              Security Ramifications of Open Source Software
+              {featuredUpdate.frontmatter.title}
             </Text>
             <Text my='24px' textStyle='bigQuote' color='secondaryMidGray'>
-              What are the security ramifications of the extensive use of
-              open-source software in modern software supply chains & how can
-              security be improved?
+              {featuredUpdate.excerpt}
             </Text>
             <Text textStyle='smallLabel' color='primaryBlue'>
-              Aug 14th 2021 • By Anushah Hossain
+              {formatDate(featuredUpdate.frontmatter.date)} • By{" "}
+              {featuredUpdate.frontmatter.author}
             </Text>
           </Box>
         </Flex>
@@ -106,9 +103,9 @@ const UpdatesPage = () => {
           my='40px'
           width={{ lg: "1088px" }}
         >
-          <UpdateCard />
-          <UpdateCard />
-          <UpdateCard />
+          {updates.map((update, index) => (
+            <UpdateCard {...update} key={index.toString()} />
+          ))}
         </SimpleGrid>
       </Flex>
       <Flex px={{ base: "16px" }} my={{ lg: "100px" }} justifyContent='center'>
@@ -118,36 +115,29 @@ const UpdatesPage = () => {
   );
 };
 
-export const UpdateCard = () => (
-  <Box
-    width={{ base: "288px", md: "340px" }}
-    boxShadow='0px 1px 4px 1px rgba(49, 50, 51, 0.1)'
-    borderRadius='24px'
-  >
-    <Image
-      src={updateCardCover}
-      alt='Up'
-      w='100%'
-      h='120px'
-      borderTopRadius='24px'
-    />
-    <Box p='24px'>
-      <Text textStyle='subHeading' color='neutralTint'>
-        Digital Infrastructure Community Call
-      </Text>
-      <Text my='12px' textStyle='xSmallLabel' color='primaryBlue'>
-        <Text as='span'>Aug 14th 2021 • </Text>
-        <Text as='span'>By Anushah Hossain</Text>
-      </Text>
-      <Text textStyle='paragraph-1' color='neutralTint-600'>
-        Regular, open call for digital infrastructure project updates, news,
-        questions and goings on.
-      </Text>
-      <Button variant='primary' width='100%' mt='40px'>
-        Read more
-      </Button>
-    </Box>
-  </Box>
-);
+export const updatesQuery = graphql`
+  query {
+    updateData: allMdx(
+      filter: { frontmatter: { type: { eq: "update" } } }
+      sort: { fields: frontmatter___date, order: DESC }
+      limit: 10
+    ) {
+      updates: nodes {
+        frontmatter {
+          title
+          author
+          date
+          path
+          type
+          coverImage {
+            publicURL
+          }
+        }
+        slug
+        excerpt(pruneLength: 72, truncate: true)
+      }
+    }
+  }
+`;
 
 export default UpdatesPage;
