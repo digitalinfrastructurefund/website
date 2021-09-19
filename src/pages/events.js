@@ -11,30 +11,25 @@ import {
 } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { graphql } from "gatsby";
-/**
- * Images
- */
-import PostImageMD from "../images/post-md.png";
 
 import Layout from "../components/Layout";
 import Subscription from "../components/Subscription";
 
 import EventCard from "../components/EventCard";
+import { formatDate } from "../lib/date";
 
 const EventsPage = ({ data }) => {
-  // const events = data.dataJson.events;
-  // const nearestEvent = events.reduce((earliestEvent, event) => {
-  //   const eventDate = dayjs(event.date);
-  //   const currentDate = dayjs();
-  //   if (eventDate.isBefore(currentDate)) {
-  //     return earliestEvent;
-  //   } else if (earliestEvent && dayjs(earliestEvent.date).isBefore(eventDate)) {
-  //     return earliestEvent;
-  //   }
-  //   return event;
-  // }, undefined);
-
-  // const lastEvent = events[events.length - 1];
+  const events = data.allIndexJson.eventData;
+  const nearestEvent = events.reduce((earliestEvent, event) => {
+    const eventDate = dayjs(event.date);
+    const currentDate = dayjs();
+    if (eventDate.isBefore(currentDate)) {
+      return earliestEvent;
+    } else if (earliestEvent && dayjs(earliestEvent.date).isBefore(eventDate)) {
+      return earliestEvent;
+    }
+    return event;
+  }, undefined);
 
   return (
     <Layout title='Events'>
@@ -71,63 +66,68 @@ const EventsPage = ({ data }) => {
         </VStack>
       </Flex>
 
-      <Flex
-        display={{ base: "none", md: "flex" }}
-        mt='40px'
-        px={{ base: "16px", sm: "32px" }}
-        justifyContent={{ lg: "center" }}
-        alignItems={{ lg: "center" }}
-      >
+      {nearestEvent && (
         <Flex
-          flexDirection={{ base: "column", lg: "row" }}
+          display={{ base: "none", md: "flex" }}
+          mt='40px'
+          px={{ base: "16px", sm: "32px" }}
           justifyContent={{ lg: "center" }}
-          width={{ lg: "1088px" }}
+          alignItems={{ lg: "center" }}
         >
-          <Image
-            w={{ md: "704px", lg: "520px" }}
-            h='400px'
-            src={PostImageMD}
-            alt='Update laptop image'
-            mb='32px'
-          />
-          <Box ml={{ lg: "24px" }}>
-            <Flex
-              alignItems='flex-start'
-              flexDirection={{ base: "column", lg: "column-reverse" }}
-            >
-              <Text
-                textStyle='smallHeader'
-                color='primaryDarkGrey'
-                my={{ lg: "24px" }}
+          <Flex
+            flexDirection={{ base: "column", lg: "row" }}
+            justifyContent={{
+              lg: nearestEvent.event.coverImage ? "center" : "flex-start",
+            }}
+            width={{ lg: "1088px" }}
+          >
+            {nearestEvent.event.coverImage && (
+              <Image
+                w={{ md: "704px", lg: "520px" }}
+                h='400px'
+                src={nearestEvent.event.coverImage.publicURL}
+                alt='Update laptop image'
+                mb='32px'
+              />
+            )}
+            <Box ml={{ lg: "24px" }} maxW='728px'>
+              <Flex
+                alignItems='flex-start'
+                flexDirection={{ base: "column", lg: "column-reverse" }}
               >
-                Digital Infrastructure Community Call
-              </Text>
-              <Box
-                bg='secondaryLime'
-                px='16px'
-                py='9px'
-                borderRadius='24px'
-                w='161px'
-                my={{ md: "24px", lg: "0" }}
-              >
-                <Text textStyle='buttonLabel' color='primaryDarkGrey'>
-                  NEXT EVENT
+                <Text
+                  textStyle='smallHeader'
+                  color='primaryDarkGrey'
+                  my={{ lg: "24px" }}
+                >
+                  {nearestEvent.event.title}
                 </Text>
-              </Box>
-            </Flex>
-            <Text mb='24px' textStyle='bigQuote' color='secondaryMidGray'>
-              Regular, open call for digital infrastructure project updates,
-              news, questions and goings on
-            </Text>
-            <Text textStyle='smallLabel' color='primaryBlue'>
-              Aug 14th 2021 • By Anushah Hossain
-            </Text>
-            <Button my='24px' width='244px' variant='primary'>
-              Add to calendar
-            </Button>
-          </Box>
+                <Box
+                  bg='secondaryLime'
+                  px='16px'
+                  py='9px'
+                  borderRadius='24px'
+                  w='161px'
+                  my={{ md: "24px", lg: "0" }}
+                >
+                  <Text textStyle='buttonLabel' color='primaryDarkGrey'>
+                    NEXT EVENT
+                  </Text>
+                </Box>
+              </Flex>
+              <Text mb='24px' textStyle='bigQuote' color='secondaryMidGray'>
+                {nearestEvent.event.description}
+              </Text>
+              <Text textStyle='smallLabel' color='primaryBlue'>
+                {formatDate(nearestEvent.event.date, "MMMM Do YYYY Z a")}
+              </Text>
+              <Button my='24px' width='244px' variant='primary'>
+                Add to calendar
+              </Button>
+            </Box>
+          </Flex>
         </Flex>
-      </Flex>
+      )}
 
       <Flex
         px={{ base: "16px", md: "32px" }}
@@ -145,14 +145,9 @@ const EventsPage = ({ data }) => {
           my='40px'
           width={{ lg: "1088px" }}
         >
-          {/* {events.map((event) => (
-            <EventCard
-              key={event.id}
-              title={event.title}
-              description={event.description}
-              date={event.date}
-            />
-          ))} */}
+          {events.map(({ event }, index) => (
+            <EventCard {...event} key={index.toString()} />
+          ))}
         </SimpleGrid>
       </Flex>
       <Flex px={{ base: "16px" }} my={{ lg: "100px" }} justifyContent='center'>
@@ -162,17 +157,22 @@ const EventsPage = ({ data }) => {
   );
 };
 
-// export const query = graphql`
-//   query {
-//     dataJson {
-//       events {
-//         id
-//         title
-//         date
-//         description
-//       }
-//     }
-//   }
-// `;
+export const query = graphql`
+  query {
+    allIndexJson(limit: 15) {
+      eventData: edges {
+        event: node {
+          id
+          description
+          date
+          title
+          coverImage {
+            publicURL
+          }
+        }
+      }
+    }
+  }
+`;
 
 export default EventsPage;
