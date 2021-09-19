@@ -1,5 +1,6 @@
 import * as React from "react";
-import { Flex, Box, Text, Link } from "@chakra-ui/react";
+import { Flex, Box, Text } from "@chakra-ui/react";
+import { Link } from "gatsby";
 
 const Section = ({ title, link, linkText, children }) => {
   const titleIsReactElement = React.isValidElement(title);
@@ -32,7 +33,11 @@ const Section = ({ title, link, linkText, children }) => {
             </Text>
           )}
           {linkText && (
-            <Link display={{ base: "none", md: "inline-block" }}>
+            <Box
+              as={Link}
+              to={link}
+              display={{ base: "none", md: "inline-block" }}
+            >
               <Text
                 textStyle='buttonLabel'
                 textTransform='uppercase'
@@ -41,13 +46,13 @@ const Section = ({ title, link, linkText, children }) => {
               >
                 {linkText}
               </Text>
-            </Link>
+            </Box>
           )}
         </Flex>
         {children}
       </Box>
       {linkText && (
-        <Link my='50px' display={{ md: "none" }}>
+        <Box as={Link} to={link} my='50px' display={{ md: "none" }}>
           <Text
             textStyle='buttonLabel'
             textTransform='uppercase'
@@ -56,7 +61,7 @@ const Section = ({ title, link, linkText, children }) => {
           >
             {linkText}
           </Text>
-        </Link>
+        </Box>
       )}
     </Flex>
   );

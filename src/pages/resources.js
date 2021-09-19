@@ -1,11 +1,17 @@
 import "@fontsource/urbanist";
 import * as React from "react";
-import { Box, Button, Flex, SimpleGrid, Text, VStack } from "@chakra-ui/react";
+import { Flex, SimpleGrid, Text, VStack } from "@chakra-ui/react";
 
 import Layout from "../components/Layout";
 import Subscription from "../components/Subscription";
+import { graphql } from "gatsby";
+import ResourcesCard from "../components/ResourceCard";
+import { getAllResources } from "../lib/util";
 
-const ResourcesPage = () => {
+const ResourcesPage = ({ data }) => {
+  const { resourcesData } = data;
+  const resourcesNodes = resourcesData.nodes;
+
   return (
     <Layout>
       <Flex
@@ -57,9 +63,9 @@ const ResourcesPage = () => {
           my='40px'
           width={{ lg: "1088px" }}
         >
-          <ResourceCard />
-          <ResourceCard />
-          <ResourceCard />
+          {getAllResources(resourcesNodes).map((resource, index) => (
+            <ResourcesCard {...resource} key={index.toString()} />
+          ))}
         </SimpleGrid>
       </Flex>
       <Flex px={{ base: "16px" }} my={{ lg: "100px" }} justifyContent='center'>
@@ -69,28 +75,25 @@ const ResourcesPage = () => {
   );
 };
 
-export const ResourceCard = () => (
-  <Box
-    padding='24px'
-    borderRadius='24px'
-    boxShadow='0px 1px 4px 1px rgba(49, 50, 51, 0.3)'
-    width={{ base: "288px", md: "340px" }}
-  >
-    <VStack alignItems='flex-start' spacing='16px'>
-      <Text textStyle='paragraph-1' color='primaryBlue'>
-        "Name of Project that goes in two lines”
-      </Text>
-      <Text textStyle='subHeading' color='neutralTint'>
-        Addiction When Gambling Becomes A Problem.
-      </Text>
-      <Text textStyle='paragraph-2' color='neutralTint-600'>
-        Author Name
-      </Text>
-    </VStack>
-    <Button variant='primary' width='100%' mt='48px'>
-      Read more
-    </Button>
-  </Box>
-);
+export const resourcesQuery = graphql`
+  query {
+    resourcesData: allMdx(
+      filter: { exports: { resources: { elemMatch: { title: { ne: null } } } } }
+      sort: { fields: frontmatter___date, order: DESC }
+    ) {
+      nodes {
+        exports {
+          resources {
+            author
+            link
+            linkText
+            quote
+            title
+          }
+        }
+      }
+    }
+  }
+`;
 
 export default ResourcesPage;
