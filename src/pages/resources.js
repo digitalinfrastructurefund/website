@@ -13,7 +13,7 @@ const ResourcesPage = ({ data }) => {
   const resourcesNodes = resourcesData.nodes;
 
   return (
-    <Layout>
+    <Layout title='Resources' activePage='resources'>
       <Flex
         px={{ base: "16px", sm: "32px" }}
         justifyContent={{ md: "flex-start", lg: "center" }}

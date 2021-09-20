@@ -15,7 +15,7 @@ const UpdatesPage = ({ data }) => {
   const featuredUpdate = updates[0];
 
   return (
-    <Layout>
+    <Layout title='Updates' activePage='updates'>
       <Flex
         px={{ base: "16px", sm: "32px" }}
         justifyContent={{ lg: "center" }}

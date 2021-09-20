@@ -11,7 +11,7 @@ const ProjectsPage = ({ data }) => {
   const projects = data?.projectData.projects;
 
   return (
-    <Layout title='Projects'>
+    <Layout title='Projects' activePage='projects'>
       <Flex
         px={{ base: "16px", sm: "32px" }}
         mb='40px'

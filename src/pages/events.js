@@ -32,7 +32,7 @@ const EventsPage = ({ data }) => {
   }, undefined);
 
   return (
-    <Layout title='Events'>
+    <Layout title='Events' activePage='events'>
       <Flex
         px={{ base: "16px", sm: "32px" }}
         justifyContent={{ md: "flex-start", lg: "center" }}

@@ -5,7 +5,6 @@ import {
   Box,
   Text,
   HStack,
-  // Link,
   SimpleGrid,
 } from "@chakra-ui/layout";
 import { Button, Collapse, useDisclosure } from "@chakra-ui/react";
@@ -14,7 +13,7 @@ import { TiMicrophone, TiSocialTwitter } from "react-icons/ti";
 import { IoLogoSlack, IoMdClose } from "react-icons/io";
 import { Link } from "gatsby";
 
-const Header = () => {
+const Header = ({ activePage }) => {
   const { isOpen, onToggle } = useDisclosure();
 
   return (
@@ -49,15 +48,15 @@ const Header = () => {
           )}
         </Button>
         <Box display={{ base: "none", md: "inline-block" }}>
-          <NavLinks />
+          <NavLinks activePage={activePage} />
         </Box>
       </Flex>
-      <MobileNav isOpen={isOpen} />
+      <MobileNav isOpen={isOpen} activePage={activePage} />
     </Box>
   );
 };
 
-const MobileNav = ({ isOpen }) => {
+const MobileNav = ({ isOpen, activePage }) => {
   return (
     <Collapse in={isOpen} animateOpacity>
       <Flex
@@ -72,7 +71,7 @@ const MobileNav = ({ isOpen }) => {
         bg='white'
         width='100%'
       >
-        <NavLinks />
+        <NavLinks activePage={activePage} />
         <Box>
           <Text
             textStyle='paragraph-2'
@@ -146,7 +145,7 @@ const Logo = () => (
   </Link>
 );
 
-const NavLinks = () => (
+const NavLinks = ({ activePage }) => (
   <SimpleGrid
     templateColumns={{
       base: "1fr 1fr",
@@ -161,47 +160,63 @@ const NavLinks = () => (
       md: "0",
     }}
   >
-    <Link to='/projects/'>
+    <Box padding='11px 16px' as={Link} to='/projects/'>
       <Text
-        padding='11px 16px'
         textStyle='smallLabel'
         color='primaryDarkGrey'
         fontWeight='600'
+        borderBottom='4px solid'
+        borderBottomColor={
+          activePage === "projects" ? "secondaryLime" : "transparent"
+        }
+        as='span'
       >
         Projects
       </Text>
-    </Link>
-    <Link to='/updates/'>
+    </Box>
+    <Box as={Link} padding='11px 16px' to='/updates/'>
       <Text
-        padding='11px 16px'
         textStyle='smallLabel'
         color='primaryDarkGrey'
         fontWeight='600'
+        borderBottom='4px solid'
+        borderBottomColor={
+          activePage === "updates" ? "secondaryLime" : "transparent"
+        }
+        as='span'
       >
         Updates
       </Text>
-    </Link>
+    </Box>
 
-    <Link to='/events/'>
+    <Box padding='11px 16px' as={Link} to='/events/'>
       <Text
-        padding='11px 16px'
+        as='span'
         textStyle='smallLabel'
         color='primaryDarkGrey'
         fontWeight='600'
+        borderBottom='4px solid'
+        borderBottomColor={
+          activePage === "events" ? "secondaryLime" : "transparent"
+        }
       >
         Events
       </Text>
-    </Link>
-    <Link to='/resources/'>
+    </Box>
+    <Box padding='11px 16px' as={Link} to='/resources/'>
       <Text
-        padding='11px 16px'
+        as='span'
         textStyle='smallLabel'
         color='primaryDarkGrey'
         fontWeight='600'
+        borderBottom='4px solid'
+        borderBottomColor={
+          activePage === "resources" ? "secondaryLime" : "transparent"
+        }
       >
         Resources
       </Text>
-    </Link>
+    </Box>
   </SimpleGrid>
 );
 

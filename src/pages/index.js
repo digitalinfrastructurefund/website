@@ -3,14 +3,12 @@ import {
   Box,
   Button,
   Flex,
-  HStack,
   Image,
-  Input,
   Stack,
   Text,
-  Textarea,
   VStack,
   Link as ChakraLink,
+  SimpleGrid,
 } from "@chakra-ui/react";
 import { graphql, Link } from "gatsby";
 
@@ -20,7 +18,7 @@ import { graphql, Link } from "gatsby";
 import digitalInfrastructureIllustration from "../images/digital-infrastructure-sm.png";
 import digitalInfrastructureIllustrationMd from "../images/digital-infrastructure-md.png";
 import digitalInfrastructureIllustrationLg from "../images/digital-infrastructure-lg.png";
-import contactUsBgIllustration from "../images/contactus-illustration.png";
+import whatIsDIIllustrationSM from "../images/what-is-DI-sm.png";
 import openCollectiveLogo from "../images/opencollective-logo.png";
 import mozillaLogo from "../images/mozilla-logo.png";
 import omidyarNetwork from "../images/on-logo.png";
@@ -34,6 +32,7 @@ import EventCard from "../components/EventCard";
 import UpdateCard from "../components/UpdateCard";
 import { getAllResources } from "../lib/util";
 import ResourcesCard from "../components/ResourceCard";
+import ContactUs from "../components/ContactUs";
 
 // markup
 const IndexPage = ({ data }) => {
@@ -163,7 +162,7 @@ const IndexPage = ({ data }) => {
           <Image
             my='16px'
             alt='Digital Infrastructure illustration'
-            src={digitalInfrastructureIllustration}
+            src={whatIsDIIllustrationSM}
             maxW={{ md: "400px" }}
             mx={{ lg: "25px" }}
           />
@@ -203,6 +202,8 @@ const IndexPage = ({ data }) => {
           direction={{ base: "column", md: "row" }}
           spacing='24px'
           alignSelf='stretch'
+          maxW={{ md: "704px", lg: "100%" }}
+          overflowX='auto'
         >
           {events.map(({ event }) => (
             <EventCard key={event.id} {...event} />
@@ -253,19 +254,23 @@ const IndexPage = ({ data }) => {
         linkText='view all resources'
         link='/resources/'
       >
-        <Stack
-          justifyContent='flex-start'
-          alignItems='center'
-          direction={{ base: "column", md: "row" }}
-          spacing='24px'
-          alignSelf='stretch'
+        <SimpleGrid
+          templateColumns={{
+            base: "1fr",
+            md: "repeat(2, 1fr)",
+            lg: "repeat(3, 1fr)",
+          }}
+          columnGap={{ base: "24px", lg: "16px" }}
+          rowGap='40px'
+          my='40px'
+          width={{ lg: "1088px" }}
         >
           {getAllResources(resourcesNodes)
             .slice(0, 3)
             .map((resource, index) => (
               <ResourcesCard {...resource} key={index.toString()} />
             ))}
-        </Stack>
+        </SimpleGrid>
       </Section>
 
       <Flex
@@ -305,115 +310,25 @@ const IndexPage = ({ data }) => {
             maintenance of digital infrastructure.
           </Text>
         </VStack>
-        <HStack my='35px' spacing='36px'>
+        <SimpleGrid
+          templateColumns={{
+            base: "repeat(3, 1fr)",
+            md: "repeat(5, 1fr)",
+          }}
+          columnGap={{ base: "24px", lg: "16px" }}
+          rowGap='36px'
+          my='35px'
+          width={{ md: "704px", lg: "1088px" }}
+          justifyItems='center'
+        >
           <Image h='73px' w='73px' src={openSocietyLogo} />
           <Image h='73px' w='73px' src={openCollectiveLogo} />
           <Image src={logo2} h='73px' w='73px' />
           <Image src={mozillaLogo} h='73px' w='73px' />
           <Image src={omidyarNetwork} h='73px' w='73px' />
-        </HStack>
+        </SimpleGrid>
       </Flex>
-      <Flex
-        px='16px'
-        flexDir='column'
-        alignItems='center'
-        my={{ base: "32px", md: "100px" }}
-        id='contactUs'
-      >
-        <Box position='relative'>
-          <Box
-            display={{ base: "none", lg: "inline-block" }}
-            position='absolute'
-            backgroundImage={{
-              lg: `url(${contactUsBgIllustration})`,
-            }}
-            backgroundRepeat='no-repeat'
-            backgroundSize='contain'
-            backgroundPosition='-20px -30px'
-            w='410px'
-            h='396px'
-            zIndex='111'
-            right='-90px'
-            top='-50px'
-          />
-          <Box
-            padding={{ base: "16px", md: "32px 64px", lg: "90px 96px 68px" }}
-            borderRadius={{ base: "24px", lg: "40px" }}
-            backgroundColor='subscriptionCard'
-            w={{ md: "704px", lg: "1088px" }}
-          >
-            <Box mb='34px' textAlign={{ base: "center", md: "left" }}>
-              <Text
-                textStyle={{
-                  base: "subHeading",
-                  md: "smallHeader",
-                  lg: "mainHeader",
-                }}
-                color='primaryDarkGrey'
-                mb='8px'
-              >
-                Contact us
-              </Text>
-              <Text
-                textStyle={{ base: "paragraph-1", md: "bigQuote" }}
-                color='secondaryMidGray'
-                maxW={{ lg: "568px" }}
-              >
-                Feel free to contact us if you want to be alerted when there's
-                funding/be a funder. You can also contact us for any feedback,
-                to say hi, or to show support to us or any of the projects.
-              </Text>
-            </Box>
-            <VStack alignItems='flex-start' spacing='20px' as='form'>
-              <Stack
-                direction={{ base: "column", md: "row" }}
-                alignSelf='stretch'
-                spacing={{ base: "16px", lg: "40px" }}
-              >
-                <VStack alignItems='flex-start' w={{ base: "100%" }}>
-                  <Text textStyle='inputLabel' color='neutralTint'>
-                    Your name
-                  </Text>
-                  <Input
-                    bg='white'
-                    borderRadius='32px'
-                    type='text'
-                    placeholder='Full Name'
-                  />
-                </VStack>
-                <VStack alignItems='flex-start' w={{ base: "100%" }}>
-                  <Text textStyle='inputLabel' color='neutralTint'>
-                    Email
-                  </Text>
-                  <Input
-                    bg='white'
-                    borderRadius='32px'
-                    type='email'
-                    placeholder='Email'
-                  />
-                </VStack>
-              </Stack>
-              <VStack alignItems='flex-start' w={{ base: "100%" }}>
-                <Text textStyle='inputLabel' color='neutralTint'>
-                  Message
-                </Text>
-                <Textarea
-                  bg='white'
-                  borderRadius='24px'
-                  placeholder='Enter your message'
-                  border='1px solid #DCDEE0 '
-                  boxShadow='0px 2px 0px 0px #3132330D inset'
-                  minH='132px'
-                  p='16px'
-                />
-              </VStack>
-              <Button w={{ base: "100%", lg: "209px" }} variant='primary'>
-                Send message
-              </Button>
-            </VStack>
-          </Box>
-        </Box>
-      </Flex>
+      <ContactUs />
     </Layout>
   );
 };

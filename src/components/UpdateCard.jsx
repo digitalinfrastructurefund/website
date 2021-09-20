@@ -10,7 +10,6 @@ const UpdateCard = ({ excerpt, frontmatter, slug }) => {
       width={{ base: "288px", md: "340px" }}
       boxShadow='0px 1px 4px 1px rgba(49, 50, 51, 0.1)'
       borderRadius='24px'
-      // height={{ base:  }}
     >
       {frontmatter.coverImage && (
         <Image
@@ -22,7 +21,7 @@ const UpdateCard = ({ excerpt, frontmatter, slug }) => {
         />
       )}
       <Box p='24px'>
-        <Box h='200px'>
+        <Box minH='200px'>
           <Text textStyle='subHeading' color='neutralTint'>
             {frontmatter.title}
           </Text>

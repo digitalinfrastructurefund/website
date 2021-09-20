@@ -5,7 +5,7 @@ import { Helmet } from "react-helmet";
 import Footer from "./Footer";
 import Header from "./Header";
 
-const Layout = ({ title, children }) => (
+const Layout = ({ title, children, activePage }) => (
   <>
     <Helmet>
       <title>
@@ -13,7 +13,7 @@ const Layout = ({ title, children }) => (
       </title>
     </Helmet>
     <main>
-      <Header />
+      <Header activePage={activePage} />
       {children}
       <Footer />
     </main>
