@@ -127,75 +127,79 @@ const ProjectPage = ({ data }) => {
         </SimpleGrid>
       </Section>
 
-      <Section
-        title={
-          <VStack alignItems={{ base: "center", md: "flex-start" }}>
-            <Text textStyle='paragraph-1' color='primaryBlue'>
-              This is
-            </Text>
-            <Text
-              textAlign='center'
-              as='h3'
-              textStyle={{ base: "subHeading", md: "smallHeader" }}
-              color='neutralTint'
-            >
-              Our team
-            </Text>
-          </VStack>
-        }
-      >
-        <SimpleGrid
-          templateColumns={{
-            base: "1fr",
-            md: "repeat(2, 1fr)",
-            lg: "repeat(3, 1fr)",
-          }}
-          columnGap={{ base: "24px", lg: "16px" }}
-          rowGap='40px'
-          my='40px'
-          width={{ lg: "1088px" }}
+      {team && (
+        <Section
+          title={
+            <VStack alignItems={{ base: "center", md: "flex-start" }}>
+              <Text textStyle='paragraph-1' color='primaryBlue'>
+                This is
+              </Text>
+              <Text
+                textAlign='center'
+                as='h3'
+                textStyle={{ base: "subHeading", md: "smallHeader" }}
+                color='neutralTint'
+              >
+                Our team
+              </Text>
+            </VStack>
+          }
         >
-          {team.map((member, index) => (
-            <TeamMemberCard {...member} key={index.toString()} />
-          ))}
-        </SimpleGrid>
-      </Section>
-      <Section
-        title={
-          <VStack
-            flexDirection='column-reverse'
-            alignItems={{ base: "center", md: "flex-start" }}
+          <SimpleGrid
+            templateColumns={{
+              base: "1fr",
+              md: "repeat(2, 1fr)",
+              lg: "repeat(3, 1fr)",
+            }}
+            columnGap={{ base: "24px", lg: "16px" }}
+            rowGap='40px'
+            my='40px'
+            width={{ lg: "1088px" }}
           >
-            <Text textStyle='paragraph-1' color='primaryBlue'>
-              From this project
-            </Text>
-            <Text
-              textAlign='center'
-              as='h3'
-              textStyle={{ base: "subHeading", md: "smallHeader" }}
-              color='neutralTint'
+            {team.map((member, index) => (
+              <TeamMemberCard {...member} key={index.toString()} />
+            ))}
+          </SimpleGrid>
+        </Section>
+      )}
+      {resources && (
+        <Section
+          title={
+            <VStack
+              flexDirection='column-reverse'
+              alignItems={{ base: "center", md: "flex-start" }}
             >
-              Resources
-            </Text>
-          </VStack>
-        }
-      >
-        <SimpleGrid
-          templateColumns={{
-            base: "1fr",
-            md: "repeat(2, 1fr)",
-            lg: "repeat(3, 1fr)",
-          }}
-          columnGap={{ base: "24px", lg: "16px" }}
-          rowGap='40px'
-          my='40px'
-          width={{ lg: "1088px" }}
+              <Text textStyle='paragraph-1' color='primaryBlue'>
+                From this project
+              </Text>
+              <Text
+                textAlign='center'
+                as='h3'
+                textStyle={{ base: "subHeading", md: "smallHeader" }}
+                color='neutralTint'
+              >
+                Resources
+              </Text>
+            </VStack>
+          }
         >
-          {resources.map((resource, index) => (
-            <ResourcesCard {...resource} key={index.toString()} />
-          ))}
-        </SimpleGrid>
-      </Section>
+          <SimpleGrid
+            templateColumns={{
+              base: "1fr",
+              md: "repeat(2, 1fr)",
+              lg: "repeat(3, 1fr)",
+            }}
+            columnGap={{ base: "24px", lg: "16px" }}
+            rowGap='40px'
+            my='40px'
+            width={{ lg: "1088px" }}
+          >
+            {resources.map((resource, index) => (
+              <ResourcesCard {...resource} key={index.toString()} />
+            ))}
+          </SimpleGrid>
+        </Section>
+      )}
 
       <Section
         title={
