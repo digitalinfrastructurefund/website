@@ -159,7 +159,7 @@ const EventsPage = ({ data }) => {
 
 export const query = graphql`
   query {
-    allIndexJson(limit: 15) {
+    allIndexJson(limit: 15, sort: { fields: date, order: DESC }) {
       eventData: edges {
         event: node {
           id
