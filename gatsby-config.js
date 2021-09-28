@@ -23,7 +23,7 @@ module.exports = {
     {
       resolve: "gatsby-plugin-manifest",
       options: {
-        icon: "src/images/icon.png",
+        icon: "src/images/icon.svg",
       },
     },
     "gatsby-plugin-mdx",
@@ -66,6 +66,13 @@ module.exports = {
       options: {
         name: "events",
         path: `${__dirname}/events`,
+      },
+    },
+    {
+      resolve: "gatsby-plugin-mailchimp",
+      options: {
+        endpoint: "",
+        timeout: 3500,
       },
     },
   ],
