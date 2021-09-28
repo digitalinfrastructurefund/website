@@ -9,12 +9,36 @@ import {
   Textarea,
   Stack,
 } from "@chakra-ui/react";
+import isEmail from "validator/lib/isEmail";
 
 import contactUsBgIllustrationLG from "../images/contactus-illustration-lg.png";
 import contactUsBgIllustrationMD from "../images/contactus-illustration-md.png";
 import contactUsBgIllustrationSM from "../images/contactus-illustration-sm.png";
 
 const ContactUs = () => {
+  const [state, setState] = React.useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [error, setError] = React.useState("");
+  const [message, setMessage] = React.useState("");
+
+  const handleOnSubmit = ({ event }) => {
+    event.preventDefault();
+    const { name, email, message } = state;
+    if (!(name && email && message)) {
+      setError("All fields are required");
+    }
+
+    if (!isEmail(email)) {
+      setError("Email is invalid");
+    }
+    setError("");
+
+    // Handle contact form
+  };
+
   return (
     <Flex
       px='16px'
@@ -69,7 +93,12 @@ const ContactUs = () => {
               say hi, or to show support to us or any of the projects.
             </Text>
           </Box>
-          <VStack alignItems='flex-start' spacing='20px' as='form'>
+          <VStack
+            alignItems='flex-start'
+            spacing='20px'
+            as='form'
+            onSubmit={handleOnSubmit}
+          >
             <Stack
               direction={{ base: "column", md: "row" }}
               alignSelf='stretch'
@@ -84,6 +113,10 @@ const ContactUs = () => {
                   borderRadius='32px'
                   type='text'
                   placeholder='Full Name'
+                  value={state.name}
+                  onChange={({ target }) =>
+                    setState({ ...state, name: target.value })
+                  }
                 />
               </VStack>
               <VStack alignItems='flex-start' w={{ base: "100%" }}>
@@ -95,6 +128,10 @@ const ContactUs = () => {
                   borderRadius='32px'
                   type='email'
                   placeholder='Email'
+                  value={state.email}
+                  onChange={({ target }) =>
+                    setState({ ...state, email: target.value })
+                  }
                 />
               </VStack>
             </Stack>
@@ -110,9 +147,17 @@ const ContactUs = () => {
                 boxShadow='0px 2px 0px 0px #3132330D inset'
                 minH='132px'
                 p='16px'
+                value={state.message}
+                onChange={({ target }) =>
+                  setState({ ...state, message: target.value })
+                }
               />
             </VStack>
-            <Button w={{ base: "100%", lg: "209px" }} variant='primary'>
+            <Button
+              w={{ base: "100%", lg: "209px" }}
+              variant='primary'
+              type='submit'
+            >
               Send message
             </Button>
           </VStack>

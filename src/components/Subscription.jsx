@@ -1,5 +1,7 @@
 import { Button, Input, Text, Flex, Box } from "@chakra-ui/react";
 import * as React from "react";
+import addToMailchimp from "gatsby-plugin-mailchimp";
+import isEmail from "validator/lib/isEmail";
 
 import subscriptionIllustrationLG from "../images/subscription-illustration-lg.png";
 import subscriptionIllustrationMD from "../images/subscription-illustration-md.png";
@@ -7,6 +9,18 @@ import subscriptionIllustrationSM from "../images/subscription-illustration-sm.p
 
 const Subscription = () => {
   const [email, setEmail] = React.useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!isEmail(email)) {
+      //
+    }
+
+    try {
+      const response = await addToMailchimp(email);
+    } catch (_) {}
+  };
 
   return (
     <Flex
@@ -67,7 +81,11 @@ const Subscription = () => {
           >
             Enter your email to be the first to know about our latest updates
           </Text>
-          <Box display={{ lg: "flex" }} alignItems={{ lg: "center" }}>
+          <Box
+            display={{ lg: "flex" }}
+            alignItems={{ lg: "center" }}
+            onSubmit={handleSubmit}
+          >
             <Flex
               as='form'
               flexDirection={{ base: "column", md: "row" }}
