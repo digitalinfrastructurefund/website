@@ -18,39 +18,46 @@ const Header = ({ activePage }) => {
 
   return (
     <Box position='relative' mb='32px'>
-      <Flex
-        padding='16px'
-        justifyContent='space-between'
-        minH={{
-          base: "56px",
-          md: "88px",
-        }}
-        alignItems='center'
-        px={{
-          sm: "20px",
-          lg: "32px",
-        }}
-        py={{
-          md: "16px",
-        }}
+      <Box
+        display={{ lg: "flex" }}
+        justifyContent={{ lg: "center" }}
+        alignItems={{ lg: "center" }}
       >
-        <Logo />
-        <Button
-          display={{ md: "none" }}
-          background='transparent'
-          outline='none'
-          onClick={onToggle}
+        <Flex
+          padding='16px'
+          justifyContent='space-between'
+          minH={{
+            base: "56px",
+            md: "88px",
+          }}
+          alignItems='center'
+          px={{
+            sm: "20px",
+            lg: "32px",
+          }}
+          py={{
+            md: "16px",
+          }}
+          width={{ lg: "1088px" }}
         >
-          {isOpen ? (
-            <IoMdClose color='#55555F' size='20px' />
-          ) : (
-            <HiMenu color='#55555F' size='20px' />
-          )}
-        </Button>
-        <Box display={{ base: "none", md: "inline-block" }}>
-          <NavLinks activePage={activePage} />
-        </Box>
-      </Flex>
+          <Logo />
+          <Button
+            display={{ md: "none" }}
+            background='transparent'
+            outline='none'
+            onClick={onToggle}
+          >
+            {isOpen ? (
+              <IoMdClose color='#55555F' size='20px' />
+            ) : (
+              <HiMenu color='#55555F' size='20px' />
+            )}
+          </Button>
+          <Box display={{ base: "none", md: "inline-block" }}>
+            <NavLinks activePage={activePage} />
+          </Box>
+        </Flex>
+      </Box>
       <MobileNav isOpen={isOpen} activePage={activePage} />
     </Box>
   );
