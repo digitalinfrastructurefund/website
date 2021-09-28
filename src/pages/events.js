@@ -17,9 +17,11 @@ import Subscription from "../components/Subscription";
 
 import EventCard from "../components/EventCard";
 import { formatDate } from "../lib/date";
+import Pagination from "../components/Pagination";
 
-const EventsPage = ({ data }) => {
+const EventsPage = ({ data, pageContext }) => {
   const events = data.allIndexJson.eventData;
+  const pageInfo = data.allIndexJson.pageInfo;
   const nearestEvent = events.reduce((earliestEvent, event) => {
     const eventDate = dayjs(event.date);
     const currentDate = dayjs();
@@ -150,6 +152,7 @@ const EventsPage = ({ data }) => {
           ))}
         </SimpleGrid>
       </Flex>
+      <Pagination {...pageInfo} />
       <Flex px={{ base: "16px" }} my={{ lg: "100px" }} justifyContent='center'>
         <Subscription />
       </Flex>
@@ -170,6 +173,15 @@ export const query = graphql`
             publicURL
           }
         }
+      }
+      pageInfo {
+        currentPage
+        totalCount
+        perPage
+        pageCount
+        itemCount
+        hasPreviousPage
+        hasNextPage
       }
     }
   }

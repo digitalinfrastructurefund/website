@@ -1,17 +1,18 @@
 import "@fontsource/urbanist";
 import * as React from "react";
 import { Box, Flex, Image, SimpleGrid, Text, VStack } from "@chakra-ui/react";
-import { graphql } from "gatsby";
+import { graphql, Link } from "gatsby";
 
 import Layout from "../../components/Layout";
 import Subscription from "../../components/Subscription";
 import UpdateCard from "../../components/UpdateCard";
 import { formatDate } from "../../lib/date";
+import Pagination from "../../components/Pagination";
 
 const UpdatesPage = ({ data }) => {
   const { updateData } = data;
   const updates = updateData.updates;
-
+  const pageInfo = updateData.pageInfo;
   const featuredUpdate = updates[0];
 
   return (
@@ -72,7 +73,13 @@ const UpdatesPage = ({ data }) => {
             <Text textStyle='subHeading' color='primaryBlue'>
               Latest Update
             </Text>
-            <Text textStyle='smallHeader' mt='32px' color='primaryDarkGrey'>
+            <Text
+              as={Link}
+              to={`/updates/${featuredUpdate.slug}/`}
+              textStyle='smallHeader'
+              mt='32px'
+              color='primaryDarkGrey'
+            >
               {featuredUpdate.frontmatter.title}
             </Text>
             <Text my='24px' textStyle='bigQuote' color='secondaryMidGray'>
@@ -102,11 +109,12 @@ const UpdatesPage = ({ data }) => {
           my='40px'
           width={{ lg: "1088px" }}
         >
-          {updates.map((update) => (
+          {updates.slice(1).map((update) => (
             <UpdateCard {...update} key={update.id} />
           ))}
         </SimpleGrid>
       </Flex>
+      <Pagination {...pageInfo} />
       <Flex px={{ base: "16px" }} my={{ lg: "100px" }} justifyContent='center'>
         <Subscription />
       </Flex>
@@ -135,6 +143,15 @@ export const updatesQuery = graphql`
         slug
         id
         excerpt(pruneLength: 72, truncate: true)
+      }
+      pageInfo {
+        currentPage
+        totalCount
+        perPage
+        pageCount
+        itemCount
+        hasPreviousPage
+        hasNextPage
       }
     }
   }
