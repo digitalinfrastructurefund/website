@@ -19,7 +19,7 @@ import EventCard from "../components/EventCard";
 import { formatDate } from "../lib/date";
 import Pagination from "../components/Pagination";
 
-const EventsPage = ({ data, pageContext }) => {
+const EventsTemplate = ({ data, pageContext }) => {
   const events = data.allIndexJson.eventData;
   const pageInfo = data.allIndexJson.pageInfo;
   const nearestEvent = events.reduce((earliestEvent, event) => {
@@ -152,7 +152,7 @@ const EventsPage = ({ data, pageContext }) => {
           ))}
         </SimpleGrid>
       </Flex>
-      <Pagination {...pageInfo} />
+      <Pagination {...pageInfo} pagePath='/events' />
       <Flex px={{ base: "16px" }} my={{ lg: "100px" }} justifyContent='center'>
         <Subscription />
       </Flex>
@@ -160,9 +160,13 @@ const EventsPage = ({ data, pageContext }) => {
   );
 };
 
-export const query = graphql`
-  query {
-    allIndexJson(limit: 15, sort: { fields: date, order: DESC }) {
+export const eventQuery = graphql`
+  query ($skip: Int!, $limit: Int!) {
+    allIndexJson(
+      limit: $limit
+      skip: $skip
+      sort: { fields: date, order: DESC }
+    ) {
       eventData: edges {
         event: node {
           id
@@ -186,5 +190,4 @@ export const query = graphql`
     }
   }
 `;
-
-export default EventsPage;
+export default EventsTemplate;

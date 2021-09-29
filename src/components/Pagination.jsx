@@ -1,4 +1,5 @@
 import { Box, Button, Flex } from "@chakra-ui/react";
+import { navigate } from "gatsby";
 import * as React from "react";
 import { BsArrowLeftShort, BsArrowRightShort } from "react-icons/bs";
 import ReactPaginate from "react-paginate";
@@ -40,7 +41,11 @@ const StyledPaginateContainer = styled.div`
   }
 `;
 
-const Pagination = ({ pageCount }) => {
+const Pagination = ({ pageCount, currentPage, pagePath }) => {
+  const handleOnPageClick = ({ selected }) => {
+    navigate(selected === 0 ? pagePath : `${pagePath}/${selected + 1}`);
+  };
+  console.log(currentPage);
   return (
     <Flex
       px={{ base: "16px", md: "32px" }}
@@ -64,6 +69,7 @@ const Pagination = ({ pageCount }) => {
           marginPagesDisplayed={1}
           previousClassName='previousButton'
           nextClassName='nextButton'
+          forcePage={currentPage - 1}
           previousLabel={
             <Button variant='outline' borderRadius='100%' size='64px'>
               <BsArrowLeftShort size='22px' />
@@ -74,6 +80,7 @@ const Pagination = ({ pageCount }) => {
               <BsArrowRightShort size='22px' />
             </Button>
           }
+          onPageChange={handleOnPageClick}
         />
       </Box>
     </Flex>
