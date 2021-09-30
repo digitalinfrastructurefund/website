@@ -1,19 +1,16 @@
 const path = require("path");
 
-const createEventPage = (data, createPage) => {
-  const eventTemplate = path.resolve("./src/templates/events.js");
-
-  const events = data.allIndexJson.eventData;
-  const eventPerPage = 15;
-  const numPages = Math.ceil(events.length / eventPerPage);
+const createPaginatedPages = ({ data, createPage, pageTemplate, pagePath }) => {
+  const dataPerPage = 15;
+  const numPages = Math.ceil(data.length / dataPerPage);
 
   Array.from({ length: numPages }).forEach((_, i) => {
     createPage({
-      path: i === 0 ? "/events/" : `/events/${i + 1}`,
-      component: eventTemplate,
+      path: i === 0 ? pagePath : `${pagePath}/${i + 1}`,
+      component: pageTemplate,
       context: {
-        limit: eventPerPage,
-        skip: i * eventPerPage,
+        limit: dataPerPage,
+        skip: i * dataPerPage,
         numPages,
         currentPage: i + 1,
       },
@@ -21,28 +18,41 @@ const createEventPage = (data, createPage) => {
   });
 };
 
+const createEventPage = (data, createPage) => {
+  const pageTemplate = path.resolve("./src/templates/events.js");
+
+  createPaginatedPages({
+    data,
+    pageTemplate,
+    createPage,
+    pagePath: "/events",
+  });
+};
+
 const createUpdatesPage = (data, createPage) => {
-  const updatesTemplate = path.resolve("./src/templates/updates.js");
+  const pageTemplate = path.resolve("./src/templates/updates.js");
 
-  const updates = data.updateData.updates;
-  const updatePerPage = 15;
-  const numPages = Math.ceil(updates.length / updatePerPage);
+  createPaginatedPages({
+    data: data,
+    pageTemplate,
+    createPage,
+    pagePath: "/updates",
+  });
+};
 
-  Array.from({ length: numPages }).forEach((_, i) => {
-    createPage({
-      path: i === 0 ? "/updates/" : `/updates/${i + 1}`,
-      component: updatesTemplate,
-      context: {
-        limit: updatePerPage,
-        skip: i * updatePerPage,
-        numPages,
-        currentPage: i + 1,
-      },
-    });
+const createProjectsPage = (data, createPage) => {
+  const pageTemplate = path.resolve("./src/templates/projects.js");
+
+  createPaginatedPages({
+    data,
+    pageTemplate,
+    createPage,
+    pagePath: "/projects",
   });
 };
 
 module.exports = {
   createEventPage,
   createUpdatesPage,
+  createProjectsPage,
 };

@@ -1,6 +1,7 @@
 const {
   createEventPage,
   createUpdatesPage,
+  createProjectsPage,
 } = require("./src/lib/createPageHelper");
 
 const allQueries = `
@@ -47,6 +48,36 @@ query {
       hasNextPage
     }
   }
+  projectData: allMdx(
+    filter: { frontmatter: { type: { eq: "project" } } }
+    sort: { fields: frontmatter___date, order: DESC }
+  ) {
+    projects: nodes {
+      frontmatter {
+        title
+        author
+        date
+        description
+        path
+        type
+        coverImage {
+          publicURL
+        }
+      }
+      id
+      slug
+      excerpt(pruneLength: 72, truncate: true)
+    }
+    pageInfo {
+      currentPage
+      totalCount
+      perPage
+      pageCount
+      itemCount
+      hasPreviousPage
+      hasNextPage
+    }
+  }
 }
 `;
 
@@ -55,7 +86,8 @@ exports.createPages = async ({ actions: { createPage }, graphql }) => {
   if (errors) throw errors;
 
   return [
-    createEventPage(data, createPage),
-    createUpdatesPage(data, createPage),
+    createEventPage(data.allIndexJson.eventData, createPage),
+    createUpdatesPage(data.updateData.updates, createPage),
+    createProjectsPage(data.projectData.projects, createPage),
   ];
 };

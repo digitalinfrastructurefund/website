@@ -3,9 +3,9 @@ import * as React from "react";
 import { Box, Flex, Text, VStack, SimpleGrid } from "@chakra-ui/react";
 import { graphql } from "gatsby";
 
-import Layout from "../../components/Layout";
-import Subscription from "../../components/Subscription";
-import ProjectCard from "../../components/ProjectCard";
+import Layout from "../components/Layout";
+import Subscription from "../components/Subscription";
+import ProjectCard from "../components/ProjectCard";
 
 const ProjectsPage = ({ data }) => {
   const projects = data?.projectData.projects;
@@ -62,10 +62,12 @@ const ProjectsPage = ({ data }) => {
 };
 
 export const projectPageQuery = graphql`
-  query {
+  query ($skip: Int!, $limit: Int!) {
     projectData: allMdx(
       filter: { frontmatter: { type: { eq: "project" } } }
-      limit: 10
+      sort: { fields: frontmatter___date, order: DESC }
+      limit: $limit
+      skip: $skip
     ) {
       projects: nodes {
         frontmatter {

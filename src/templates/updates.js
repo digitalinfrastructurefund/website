@@ -54,43 +54,45 @@ const UpdatesPage = ({ data }) => {
         justifyContent={{ lg: "center" }}
         alignItems={{ lg: "center" }}
       >
-        <Flex
-          flexDirection={{ base: "column", lg: "row" }}
-          justifyContent={{ lg: "center" }}
-          width={{ lg: "1088px" }}
-        >
-          {featuredUpdate.frontmatter.coverImage && (
-            <Image
-              w={{ md: "704px", lg: "520px" }}
-              h='400px'
-              src={featuredUpdate.frontmatter.coverImage.publicURL}
-              alt='Update laptop image'
-              mb='32px'
-              borderRadius='24px'
-            />
-          )}
-          <Box ml={{ lg: "24px" }}>
-            <Text textStyle='subHeading' color='primaryBlue'>
-              Latest Update
-            </Text>
-            <Text
-              as={Link}
-              to={`/updates/${featuredUpdate.slug}/`}
-              textStyle='smallHeader'
-              mt='32px'
-              color='primaryDarkGrey'
-            >
-              {featuredUpdate.frontmatter.title}
-            </Text>
-            <Text my='24px' textStyle='bigQuote' color='secondaryMidGray'>
-              {featuredUpdate.excerpt}
-            </Text>
-            <Text textStyle='smallLabel' color='primaryBlue'>
-              {formatDate(featuredUpdate.frontmatter.date)} • By{" "}
-              {featuredUpdate.frontmatter.author}
-            </Text>
-          </Box>
-        </Flex>
+        {pageInfo.currentPage <= 1 && (
+          <Flex
+            flexDirection={{ base: "column", lg: "row" }}
+            justifyContent={{ lg: "center" }}
+            width={{ lg: "1088px" }}
+          >
+            {featuredUpdate.frontmatter.coverImage && (
+              <Image
+                w={{ md: "704px", lg: "520px" }}
+                h='400px'
+                src={featuredUpdate.frontmatter.coverImage.publicURL}
+                alt='Update laptop image'
+                mb='32px'
+                borderRadius='24px'
+              />
+            )}
+            <Box ml={{ lg: "24px" }}>
+              <Text textStyle='subHeading' color='primaryBlue'>
+                Latest Update
+              </Text>
+              <Text
+                as={Link}
+                to={`/updates/${featuredUpdate.slug}/`}
+                textStyle='smallHeader'
+                mt='32px'
+                color='primaryDarkGrey'
+              >
+                {featuredUpdate.frontmatter.title}
+              </Text>
+              <Text my='24px' textStyle='bigQuote' color='secondaryMidGray'>
+                {featuredUpdate.excerpt}
+              </Text>
+              <Text textStyle='smallLabel' color='primaryBlue'>
+                {formatDate(featuredUpdate.frontmatter.date)} • By{" "}
+                {featuredUpdate.frontmatter.author}
+              </Text>
+            </Box>
+          </Flex>
+        )}
       </Flex>
 
       <Flex

@@ -19,7 +19,7 @@ import EventCard from "../components/EventCard";
 import { formatDate } from "../lib/date";
 import Pagination from "../components/Pagination";
 
-const EventsTemplate = ({ data, pageContext }) => {
+const EventsTemplate = ({ data }) => {
   const events = data.allIndexJson.eventData;
   const pageInfo = data.allIndexJson.pageInfo;
   const nearestEvent = events.reduce((earliestEvent, event) => {
@@ -68,7 +68,7 @@ const EventsTemplate = ({ data, pageContext }) => {
         </VStack>
       </Flex>
 
-      {nearestEvent && (
+      {nearestEvent && pageInfo.currentPage <= 1 && (
         <Flex
           display={{ base: "none", md: "flex" }}
           mt='40px'
