@@ -3,11 +3,11 @@ import * as React from "react";
 import { Box, Flex, Image, SimpleGrid, Text, VStack } from "@chakra-ui/react";
 import { graphql, Link } from "gatsby";
 
-import Layout from "../../components/Layout";
-import Subscription from "../../components/Subscription";
-import UpdateCard from "../../components/UpdateCard";
-import { formatDate } from "../../lib/date";
-import Pagination from "../../components/Pagination";
+import Layout from "../components/Layout";
+import Subscription from "../components/Subscription";
+import UpdateCard from "../components/UpdateCard";
+import { formatDate } from "../lib/date";
+import Pagination from "../components/Pagination";
 
 const UpdatesPage = ({ data }) => {
   const { updateData } = data;
@@ -114,7 +114,7 @@ const UpdatesPage = ({ data }) => {
           ))}
         </SimpleGrid>
       </Flex>
-      <Pagination {...pageInfo} />
+      <Pagination {...pageInfo} pagePath='/updates' />
       <Flex px={{ base: "16px" }} my={{ lg: "100px" }} justifyContent='center'>
         <Subscription />
       </Flex>
@@ -123,11 +123,12 @@ const UpdatesPage = ({ data }) => {
 };
 
 export const updatesQuery = graphql`
-  query {
+  query ($skip: Int!, $limit: Int!) {
     updateData: allMdx(
       filter: { frontmatter: { type: { eq: "update" } } }
       sort: { fields: frontmatter___date, order: DESC }
-      limit: 10
+      limit: $limit
+      skip: $skip
     ) {
       updates: nodes {
         frontmatter {
