@@ -1,4 +1,4 @@
-import { Button, Input, Text, Flex, Box } from "@chakra-ui/react";
+import { Button, Input, Text, Flex, Box, VStack } from "@chakra-ui/react";
 import * as React from "react";
 import addToMailchimp from "gatsby-plugin-mailchimp";
 import isEmail from "validator/lib/isEmail";
@@ -9,17 +9,25 @@ import subscriptionIllustrationSM from "../images/subscription-illustration-sm.p
 
 const Subscription = () => {
   const [email, setEmail] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
+  const [state, setState] = React.useState({});
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!isEmail(email)) {
-      //
+      return;
     }
 
     try {
+      setLoading(true);
       const response = await addToMailchimp(email);
+      if (response && response.result === "success") {
+        setEmail("");
+      }
+      setState(response);
     } catch (_) {}
+    setLoading(false);
   };
 
   return (
@@ -86,33 +94,46 @@ const Subscription = () => {
             alignItems={{ lg: "center" }}
             onSubmit={handleSubmit}
           >
-            <Flex
-              as='form'
-              flexDirection={{ base: "column", md: "row" }}
-              alignItems='center'
-            >
-              <Input
-                bg='white'
-                placeholder='e.g. johndoe@gmail.com'
-                borderRadius='24px'
-                width={{ md: "397px" }}
-                p='16px 12px'
-                pr='35px'
-                onChange={({ target }) => setEmail(target.value)}
-                value={email}
-              />
-              <Button
-                variant='primary'
-                width='164px'
-                my='8px'
-                position='relative'
-                left={{ md: "-30px" }}
-                zIndex='1'
-                type='submit'
+            <VStack alignItems='flex-start'>
+              <Flex
+                as='form'
+                flexDirection={{ base: "column", md: "row" }}
+                alignItems='center'
               >
-                Subscribe
-              </Button>
-            </Flex>
+                <Input
+                  bg='white'
+                  placeholder='e.g. johndoe@gmail.com'
+                  borderRadius='24px'
+                  width={{ md: "397px" }}
+                  p='16px 12px'
+                  pr='35px'
+                  onChange={({ target }) => setEmail(target.value)}
+                  value={email}
+                />
+                <Button
+                  variant='primary'
+                  width='164px'
+                  my='8px'
+                  position='relative'
+                  left={{ md: "-30px" }}
+                  zIndex='1'
+                  type='submit'
+                  isLoading={loading}
+                >
+                  Subscribe
+                </Button>
+              </Flex>
+              {state.result && (
+                <Text
+                  width={{ md: "400px" }}
+                  textTransform='capitalize'
+                  textStyle='buttonLabel'
+                  color='secondaryMidGray'
+                >
+                  {state.msg}
+                </Text>
+              )}
+            </VStack>
             <Text
               textStyle={{ base: "paragraph-2", md: "smallLabel" }}
               color='primaryBlue'
