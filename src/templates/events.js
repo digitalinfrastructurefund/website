@@ -8,6 +8,7 @@ import {
   SimpleGrid,
   Text,
   VStack,
+  Link,
 } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { graphql } from "gatsby";
@@ -123,8 +124,15 @@ const EventsTemplate = ({ data }) => {
               <Text textStyle='smallLabel' color='primaryBlue'>
                 {formatDate(nearestEvent.event.date, "MMMM Do YYYY Z a")}
               </Text>
-              <Button my='24px' width='244px' variant='primary'>
-                Add to calendar
+              <Button
+                href='https://'
+                as={Link}
+                isExternal
+                my='24px'
+                width='244px'
+                variant='primary'
+              >
+                Register
               </Button>
             </Box>
           </Flex>
