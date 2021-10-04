@@ -22,9 +22,9 @@ const ContactUs = () => {
     message: "",
   });
   const [error, setError] = React.useState("");
-  const [message, setMessage] = React.useState("");
+  const [response, setResponse] = React.useState({});
 
-  const handleOnSubmit = ({ event }) => {
+  const handleOnSubmit = (event) => {
     event.preventDefault();
     const { name, email, message } = state;
     if (!(name && email && message)) {
@@ -34,9 +34,20 @@ const ContactUs = () => {
     if (!isEmail(email)) {
       setError("Email is invalid");
     }
-    setError("");
 
-    // Handle contact form
+    try {
+      setResponse({
+        result: "success",
+        message:
+          "Thank you! Your message has been sent. We will be in touch soon.",
+      });
+    } catch (err) {
+      setResponse({
+        result: "failure",
+        message:
+          "An unexpected error ocurred, please refresh the page and try again.",
+      });
+    }
   };
 
   return (
@@ -93,74 +104,85 @@ const ContactUs = () => {
               say hi, or to show support to us or any of the projects.
             </Text>
           </Box>
-          <VStack
-            alignItems='flex-start'
-            spacing='20px'
-            as='form'
-            onSubmit={handleOnSubmit}
-          >
-            <Stack
-              direction={{ base: "column", md: "row" }}
-              alignSelf='stretch'
-              spacing={{ base: "16px", lg: "40px" }}
-            >
-              <VStack alignItems='flex-start' w={{ base: "100%" }}>
-                <Text textStyle='inputLabel' color='neutralTint'>
-                  Your name
-                </Text>
-                <Input
-                  bg='white'
-                  borderRadius='32px'
-                  type='text'
-                  placeholder='Full Name'
-                  value={state.name}
-                  onChange={({ target }) =>
-                    setState({ ...state, name: target.value })
-                  }
-                />
-              </VStack>
-              <VStack alignItems='flex-start' w={{ base: "100%" }}>
-                <Text textStyle='inputLabel' color='neutralTint'>
-                  Email
-                </Text>
-                <Input
-                  bg='white'
-                  borderRadius='32px'
-                  type='email'
-                  placeholder='Email'
-                  value={state.email}
-                  onChange={({ target }) =>
-                    setState({ ...state, email: target.value })
-                  }
-                />
-              </VStack>
-            </Stack>
-            <VStack alignItems='flex-start' w={{ base: "100%" }}>
-              <Text textStyle='inputLabel' color='neutralTint'>
-                Message
+          {response.result ? (
+            <Box>
+              <Text
+                textStyle='defaultHeader'
+                color={response.result === "success" ? "primaryBlue" : "error"}
+              >
+                {response.message}
               </Text>
-              <Textarea
-                bg='white'
-                borderRadius='24px'
-                placeholder='Enter your message'
-                border='1px solid #DCDEE0 '
-                boxShadow='0px 2px 0px 0px #3132330D inset'
-                minH='132px'
-                p='16px'
-                value={state.message}
-                onChange={({ target }) =>
-                  setState({ ...state, message: target.value })
-                }
-              />
-            </VStack>
-            <Button
-              w={{ base: "100%", lg: "209px" }}
-              variant='primary'
-              type='submit'
+            </Box>
+          ) : (
+            <VStack
+              alignItems='flex-start'
+              spacing='20px'
+              as='form'
+              onSubmit={handleOnSubmit}
             >
-              Send message
-            </Button>
-          </VStack>
+              <Stack
+                direction={{ base: "column", md: "row" }}
+                alignSelf='stretch'
+                spacing={{ base: "16px", lg: "40px" }}
+              >
+                <VStack alignItems='flex-start' w={{ base: "100%" }}>
+                  <Text textStyle='inputLabel' color='neutralTint'>
+                    Your name
+                  </Text>
+                  <Input
+                    bg='white'
+                    borderRadius='32px'
+                    type='text'
+                    placeholder='Full Name'
+                    value={state.name}
+                    onChange={({ target }) =>
+                      setState({ ...state, name: target.value })
+                    }
+                  />
+                </VStack>
+                <VStack alignItems='flex-start' w={{ base: "100%" }}>
+                  <Text textStyle='inputLabel' color='neutralTint'>
+                    Email
+                  </Text>
+                  <Input
+                    bg='white'
+                    borderRadius='32px'
+                    type='email'
+                    placeholder='Email'
+                    value={state.email}
+                    onChange={({ target }) =>
+                      setState({ ...state, email: target.value })
+                    }
+                  />
+                </VStack>
+              </Stack>
+              <VStack alignItems='flex-start' w={{ base: "100%" }}>
+                <Text textStyle='inputLabel' color='neutralTint'>
+                  Message
+                </Text>
+                <Textarea
+                  bg='white'
+                  borderRadius='24px'
+                  placeholder='Enter your message'
+                  border='1px solid #DCDEE0 '
+                  boxShadow='0px 2px 0px 0px #3132330D inset'
+                  minH='132px'
+                  p='16px'
+                  value={state.message}
+                  onChange={({ target }) =>
+                    setState({ ...state, message: target.value })
+                  }
+                />
+              </VStack>
+              <Button
+                w={{ base: "100%", lg: "209px" }}
+                variant='primary'
+                type='submit'
+              >
+                Send message
+              </Button>
+            </VStack>
+          )}
         </Box>
       </Box>
     </Flex>

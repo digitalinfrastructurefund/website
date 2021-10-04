@@ -95,6 +95,7 @@ const theme = {
     "neutralTint-400": "#C4C7CC",
     subscriptionCard: "rgba(183, 194, 217, 0.6)",
     paleBox: "#D4DAE8",
+    error: "#A32143",
   },
   breakpoints,
   components: {
