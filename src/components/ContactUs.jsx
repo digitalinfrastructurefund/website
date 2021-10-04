@@ -24,29 +24,45 @@ const ContactUs = () => {
   const [error, setError] = React.useState("");
   const [response, setResponse] = React.useState({});
 
-  const handleOnSubmit = (event) => {
+  const handleOnSubmit = async (event) => {
     event.preventDefault();
     const { name, email, message } = state;
     if (!(name && email && message)) {
       setError("All fields are required");
+      return;
     }
 
     if (!isEmail(email)) {
-      setError("Email is invalid");
+      setError("Please enter a valid email");
+      return;
     }
 
+    const request = new Request(`/api/contact`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify({ name, email, message }),
+    });
+
     try {
-      setResponse({
-        result: "success",
-        message:
-          "Thank you! Your message has been sent. We will be in touch soon.",
-      });
+      const rawResponse = await fetch(request);
+
+      if (rawResponse.status === 200) {
+        setResponse({
+          result: "success",
+          message:
+            "Thank you! Your message has been sent. We will be in touch soon.",
+        });
+      } else {
+        setResponse({
+          result: "failure",
+          message:
+            "An unexpected error ocurred, please refresh the page and try again.",
+        });
+      }
     } catch (err) {
-      setResponse({
-        result: "failure",
-        message:
-          "An unexpected error ocurred, please refresh the page and try again.",
-      });
+      console.error(err);
     }
   };
 
@@ -104,6 +120,13 @@ const ContactUs = () => {
               say hi, or to show support to us or any of the projects.
             </Text>
           </Box>
+          {error && (
+            <Box w={{ base: "100%" }}>
+              <Text textAlign='smallLabel' color='error'>
+                {error}
+              </Text>
+            </Box>
+          )}
           {response.result ? (
             <Box>
               <Text
