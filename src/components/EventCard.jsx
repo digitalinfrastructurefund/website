@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Box, Button, Text } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { formatDate } from "../lib/date";
 
@@ -55,11 +55,6 @@ const EventCard = ({ title, description, date, coverImage, isNextEvent }) => {
         <Text textStyle='paragraph-1' color='neutralTint-600' mb='20px'>
           {description}
         </Text>
-        {isNextEvent && (
-          <Button width='100%' variant='primary'>
-            Add to calendar
-          </Button>
-        )}
       </Box>
     </Box>
   );

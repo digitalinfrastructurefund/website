@@ -125,7 +125,7 @@ const EventsTemplate = ({ data }) => {
                 {formatDate(nearestEvent.event.date, "MMMM Do YYYY Z a")}
               </Text>
               <Button
-                href='https://'
+                href={nearestEvent.event.eventLink}
                 as={Link}
                 isExternal
                 my='24px'

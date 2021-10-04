@@ -38,7 +38,7 @@ const Header = ({ activePage }) => {
           py={{
             md: "16px",
           }}
-          width={{ lg: "1088px" }}
+          width={{ lg: "1188px" }}
         >
           <Logo />
           <Button
