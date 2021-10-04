@@ -45,7 +45,7 @@ const Pagination = ({ pageCount, currentPage, pagePath }) => {
   const handleOnPageClick = ({ selected }) => {
     navigate(selected === 0 ? pagePath : `${pagePath}/${selected + 1}`);
   };
-  console.log(currentPage);
+
   return (
     <Flex
       px={{ base: "16px", md: "32px" }}
