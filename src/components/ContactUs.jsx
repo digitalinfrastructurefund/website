@@ -22,6 +22,7 @@ const ContactUs = () => {
     message: "",
   });
   const [error, setError] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
   const [response, setResponse] = React.useState({});
 
   const handleOnSubmit = async (event) => {
@@ -46,6 +47,7 @@ const ContactUs = () => {
     });
 
     try {
+      setLoading(true);
       const rawResponse = await fetch(request);
 
       if (rawResponse.status === 200) {
@@ -64,6 +66,7 @@ const ContactUs = () => {
     } catch (err) {
       console.error(err);
     }
+    setLoading(false);
   };
 
   return (
@@ -201,6 +204,7 @@ const ContactUs = () => {
                 w={{ base: "100%", lg: "209px" }}
                 variant='primary'
                 type='submit'
+                isLoading={loading}
               >
                 Send message
               </Button>
