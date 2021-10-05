@@ -51,7 +51,7 @@ module.exports = async (req, res) => {
     res.status(400).send("All inputs required");
   }
 
-  const result = await sendMessage({
+  await sendMessage({
     to: "hello@digitalinfrastrcuture.fund",
     from: "Digital Infrastructure Fund <hello@digitalinfrastrcuture.fund>",
     subject: "NEW! Contact us form response",
@@ -61,6 +61,5 @@ module.exports = async (req, res) => {
         Message: "${body.message}"
       `,
   });
-  console.log(result);
-  res.status(200).send({ result: "Success", data: result });
+  res.status(200).send({ result: "Success" });
 };
