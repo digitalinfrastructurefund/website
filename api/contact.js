@@ -52,13 +52,14 @@ module.exports = async (req, res) => {
   }
 
   await sendMessage({
-    to: "info@opencollective.com",
-    from: "Open Collective <info@opencollective.com>",
-    subject: "Open Stocks: I’m interested",
+    to: "hello@digitalinfrastrcuture.fund",
+    from: "Digital Infrastructure Fund <hello@digitalinfrastrcuture.fund>",
+    subject: "NEW! Contact us form response",
     text: `
         Email: ${body.email}
+        Name: ${body.name}
+        Message: "${body.message}"
       `,
   });
-
   res.status(200).send({ result: "Success" });
 };
