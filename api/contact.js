@@ -52,8 +52,8 @@ module.exports = async (req, res) => {
   }
 
   await sendMessage({
-    to: "hello@digitalinfrastrcuture.fund",
-    from: "Digital Infrastructure Fund <hello@digitalinfrastrcuture.fund>",
+    to: "hello@digitalinfrastructure.fund",
+    from: "Digital Infrastructure Fund <hello@digitalinfrastrucuture.fund>",
     subject: "NEW! Contact us form response",
     text: `
         Email: ${body.email}
