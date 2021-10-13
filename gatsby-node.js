@@ -91,3 +91,14 @@ exports.createPages = async ({ actions: { createPage }, graphql }) => {
     createProjectsPage(data.projectData.projects, createPage),
   ];
 };
+
+exports.createSchemaCustomization = ({ actions }) => {
+  const { createTypes } = actions;
+  const typeDef = `
+  type MdxExportsTeam implements Node {
+    image: File
+  }
+`;
+
+  createTypes(typeDef);
+};
