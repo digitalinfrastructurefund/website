@@ -410,6 +410,9 @@ export const IndexPageQuery = graphql`
             title
           }
         }
+        frontmatter {
+          title
+        }
       }
     }
   }

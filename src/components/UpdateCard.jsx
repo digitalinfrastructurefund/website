@@ -22,14 +22,14 @@ const UpdateCard = ({ excerpt, frontmatter, slug }) => {
       )}
       <Box p='24px'>
         <Box minH='200px'>
-          <Text textStyle='subHeading' color='neutralTint'>
+          <Text noOfLines={3} textStyle='subHeading' color='neutralTint'>
             {frontmatter.title}
           </Text>
           <Text my='12px' textStyle='xSmallLabel' color='primaryBlue'>
             <Text as='span'>{formatDate(frontmatter.date)} • </Text>
             <Text as='span'>By {frontmatter.author}</Text>
           </Text>
-          <Text textStyle='paragraph-1' color='neutralTint-600'>
+          <Text noOfLines={3} textStyle='paragraph-1' color='neutralTint-600'>
             {excerpt}
           </Text>
         </Box>
