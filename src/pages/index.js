@@ -230,7 +230,11 @@ const IndexPage = ({ data }) => {
       </Flex>
       {/* Projects */}
       <Section title='Projects' linkText='view all projects' link='/projects/'>
-        <Flex flexDirection='column'>
+        <Flex
+          flexDirection='column'
+          alignItems='center'
+          justifyContent='center'
+        >
           <FeaturedProjects projects={projects} />
         </Flex>
       </Section>
@@ -351,6 +355,7 @@ export const IndexPageQuery = graphql`
             publicURL
           }
         }
+        slug
         excerpt(pruneLength: 72, truncate: true)
       }
     }
@@ -368,9 +373,12 @@ export const IndexPageQuery = graphql`
           path
           type
           coverImage {
-            publicURL
+            childImageSharp {
+              gatsbyImageData(layout: CONSTRAINED, placeholder: BLURRED)
+            }
           }
         }
+        slug
         excerpt
       }
     }

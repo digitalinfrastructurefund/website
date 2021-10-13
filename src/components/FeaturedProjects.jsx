@@ -1,52 +1,68 @@
-import { Box, Button, Image, Stack, Text, HStack } from "@chakra-ui/react";
+import { Box, Button, Stack, Text, HStack, Grid } from "@chakra-ui/react";
+import { Link } from "gatsby";
 import * as React from "react";
 import { BsArrowLeftShort, BsArrowRightShort } from "react-icons/bs";
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
 
 const FeaturedProjects = ({ projects }) => {
   const [activeIndex, setActiveIndex] = React.useState(0);
   const project = projects[activeIndex];
+  const hasCoverImage = project.frontmatter.coverImage ? true : false;
 
   return (
     <>
-      <Box
-        display='flex'
-        alignItems='center'
-        flexDir={{ base: "column", lg: "row" }}
+      <Grid
+        justifyItems='center'
+        placeItems='center'
+        templateColumns={{ base: "1fr", lg: hasCoverImage ? "1fr 1fr" : "1fr" }}
+        w={{
+          base: "288px",
+          md: "656px",
+          lg: "1088px",
+        }}
       >
-        <Box
-          w={{ base: "256px", md: "524px", lg: "484px" }}
-          h={{ base: "256px", md: "382px", lg: "468px" }}
-        >
-          <Image
-            src={project.frontmatter?.coverImage?.publicURL}
-            alt='Project covers'
-            position='relative'
+        {hasCoverImage && (
+          <Box
+            w={{ base: "256px", md: "524px", lg: "484px" }}
+            h={{ base: "256px", md: "382px", lg: "468px" }}
             bottom={{ base: "-40px", lg: "0" }}
             top={{ base: "0", lg: "-20px" }}
             borderRadius='24px'
             zIndex='1'
-            loading='eager'
-            h='100%'
-            w='100%'
-            objectFit='cover'
-          />
-        </Box>
+            position='relative'
+          >
+            <GatsbyImage
+              image={getImage(project.frontmatter.coverImage)}
+              alt='Project covers image'
+              style={{
+                height: "100%",
+                objectFit: "cover",
+                borderRadius: "24px",
+              }}
+            />
+          </Box>
+        )}
+
         <Box
           bg='paleBox'
           padding={{ base: "16px", lg: "40px" }}
           borderRadius='24px'
           textAlign={{ base: "center", md: "left" }}
-          width={{ base: "288px", md: "656px" }}
-          pl={{ lg: "56px" }}
+          pl={{ lg: hasCoverImage ? "96px" : "40px" }}
           position='relative'
-          left={{ base: "0", lg: "-40px" }}
-          h={{ lg: "484px" }}
+          right={{ base: "0", lg: hasCoverImage ? "51px" : "0" }}
+          h={{ lg: hasCoverImage ? "484px" : "372px" }}
+          maxW={{ lg: hasCoverImage ? "655px" : "100%" }}
         >
           <Text
             textStyle={{ base: "subHeading", md: "smallHeader" }}
             color='primaryDarkGrey'
             mb='16px'
-            maxW={{ base: "256px", md: "576px" }}
+            maxW={{
+              base: "256px",
+              md: "576px",
+              lg: hasCoverImage ? "519px" : "fit-content",
+            }}
           >
             {project.frontmatter?.title}
           </Text>
@@ -56,9 +72,12 @@ const FeaturedProjects = ({ projects }) => {
           <Text textStyle='smallLabel' color='secondaryMidGray' mb='28px'>
             {project.excerpt}
           </Text>
-          <Text textStyle='paragraph-1' color='secondaryMidGray' mb='28px'>
-            Participants: {project.frontmatter?.participants}
-          </Text>
+          {project.frontmatter?.participants && (
+            <Text textStyle='paragraph-1' color='secondaryMidGray' mb='28px'>
+              Participants: {project.frontmatter?.participants}
+            </Text>
+          )}
+
           <Stack
             direction={{ base: "column", md: "row" }}
             alignItems='center'
@@ -76,12 +95,14 @@ const FeaturedProjects = ({ projects }) => {
               alignSelf='stretch'
               variant='secondary'
               width={{ md: "278px" }}
+              to={`/projects/${project.slug}`}
+              as={Link}
             >
               Know more
             </Button>
           </Stack>
         </Box>
-      </Box>
+      </Grid>
 
       <HStack
         justifyContent='center'
