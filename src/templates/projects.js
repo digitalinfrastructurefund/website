@@ -6,9 +6,12 @@ import { graphql } from "gatsby";
 import Layout from "../components/Layout";
 import Subscription from "../components/Subscription";
 import ProjectCard from "../components/ProjectCard";
+import Pagination from "../components/Pagination";
 
 const ProjectsPage = ({ data }) => {
-  const projects = data?.projectData.projects;
+  const { projectData } = data;
+  const projects = projectData.projects;
+  const pageInfo = projectData.pageInfo;
 
   return (
     <Layout title='Projects' activePage='projects'>
@@ -54,6 +57,7 @@ const ProjectsPage = ({ data }) => {
           ))}
         </SimpleGrid>
       </Flex>
+      <Pagination {...pageInfo} pagePath='/projects' />
       <Flex px={{ base: "16px", sm: "32px" }} my='40px' justifyContent='center'>
         <Subscription />
       </Flex>
@@ -84,6 +88,15 @@ export const projectPageQuery = graphql`
         id
         slug
         excerpt(pruneLength: 72, truncate: true)
+      }
+      pageInfo {
+        currentPage
+        totalCount
+        perPage
+        pageCount
+        itemCount
+        hasPreviousPage
+        hasNextPage
       }
     }
   }
