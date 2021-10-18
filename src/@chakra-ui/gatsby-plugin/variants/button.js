@@ -3,9 +3,14 @@ export const buttonVariants = {
     baseStyle: {
       _focus: {
         shadow: "none",
+        border: "4px solid #B2E080",
       },
       _hover: {
         textDecoration: "none",
+        boxShadow: "0px 12px 0px 0px #B7C2D9",
+      },
+      _active: {
+        border: "4px solid #B7C2D9",
       },
     },
     variants: {
