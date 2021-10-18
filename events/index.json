@@ -1,34 +1,30 @@
 [
   {
-    "id": 0,
-    "coverImage": "./event-1.png",
-    "title": "Digital Infrastructure Community Call Jan",
-    "date": "2021-01-06T00:00:00.000Z",
-    "description": "Regular, open call for digital infrastructure project updates, news, questions and goings on.",
-    "eventLink": "https://opencollective.com/events"
-  },
-  {
     "id": 1,
     "coverImage": "./event-1.png",
-    "title": "Digital Infrastructure Community Call March",
-    "date": "2021-03-06T00:00:00.000Z",
-    "description": "Regular, open call for digital infrastructure project updates, news, questions and goings on.",
-    "eventLink": "https://opencollective.com/events"
+    "title": "Digital Infrastructure Community Call - June",
+    "date": "2021-06-22T16:00:00.000Z",
+    "description": "Regular, open call for digital infrastructure project updates, news, questions and goings on."
   },
   {
     "id": 2,
     "coverImage": "./event-1.png",
-    "title": "Digital Infrastructure Community Call June",
-    "date": "2021-06-12T00:00:00.000Z",
-    "description": "Regular, open call for digital infrastructure project updates, news, questions and goings on.",
-    "eventLink": "https://opencollective.com/events"
+    "title": "Digital Infrastructure Community Call - August",
+    "date": "2021-08-03T16:00:00.000Z",
+    "description": "Regular, open call for digital infrastructure project updates, news, questions and goings on."
   },
   {
     "id": 3,
     "coverImage": "./event-1.png",
-    "title": "Digital Infrastructure Community Call December",
-    "date": "2021-12-11T00:00:00.000Z",
-    "description": "Regular, open call for digital infrastructure project updates, news, questions and goings on.",
-    "eventLink": "https://opencollective.com/events"
+    "title": "Digital Infrastructure Community Call - September",
+    "date": "2021-09-14T16:00:00.000Z",
+    "description": "Regular, open call for digital infrastructure project updates, news, questions and goings on."
+  },
+  {
+    "id": 4,
+    "coverImage": "./event-1.png",
+    "title": "Digital Infrastructure Community Call - November",
+    "date": "2021-11-02T16:00:00.000Z",
+    "description": "Regular, open call for digital infrastructure project updates, news, questions and goings on."
   }
 ]
