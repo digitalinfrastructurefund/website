@@ -7,8 +7,9 @@ const TeamMemberCard = ({ name, role, image }) => (
       borderRadius='24px'
       w='104px'
       h='104px'
-      src={image.publicURL}
+      src={image?.publicURL}
       alt={name}
+      name={name}
     />
     <VStack alignItems='flex-start'>
       <Text textStyle='paragraph-1' color='primaryDarkGrey'>

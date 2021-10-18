@@ -144,7 +144,7 @@ const Logo = () => (
       fontWeight='600'
       color='primaryDarkgray'
     >
-      Digital • Infrastructure •
+      Digital • Infrastructure •{" "}
       <Text as='span' color='primaryBlue'>
         Fund
       </Text>

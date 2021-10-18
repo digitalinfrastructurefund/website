@@ -195,7 +195,11 @@ const ProjectPage = ({ data }) => {
             width={{ lg: "1088px" }}
           >
             {resources.map((resource, index) => (
-              <ResourcesCard {...resource} key={index.toString()} />
+              <ResourcesCard
+                {...resource}
+                quote={resource.quote || post.frontmatter.title}
+                key={index.toString()}
+              />
             ))}
           </SimpleGrid>
         </Section>

@@ -91,6 +91,9 @@ export const resourcesQuery = graphql`
             title
           }
         }
+        frontmatter {
+          title
+        }
       }
     }
   }

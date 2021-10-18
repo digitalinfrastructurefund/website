@@ -7,24 +7,33 @@ const ProjectCard = ({ frontmatter, excerpt, slug }) => (
     width={{ base: "288px", md: "340px" }}
     boxShadow='0px 1px 4px 1px rgba(49, 50, 51, 0.1)'
     borderRadius='24px'
+    pt={frontmatter.coverImage ? "unset" : "24px"}
   >
-    <Box
-      w='100%'
-      h={{ base: "120px" }}
-      borderTopRadius='24px'
-      background={
-        frontmatter.coverImage
-          ? `url(${frontmatter.coverImage.publicURL}) no-repeat`
-          : ""
-      }
-      backgroundSize='cover'
-      mb='24px'
-    />
+    {frontmatter.coverImage && (
+      <Box
+        w='100%'
+        h={{ base: "120px" }}
+        borderTopRadius='24px'
+        background={
+          frontmatter.coverImage
+            ? `url(${frontmatter.coverImage.publicURL}) no-repeat`
+            : ""
+        }
+        backgroundSize='cover'
+        mb='24px'
+      />
+    )}
+
     <Box px='24px' h='200px'>
-      <Text textStyle='subHeading' mb='12px' color='neutralTint'>
+      <Text noOfLines={3} textStyle='subHeading' mb='12px' color='neutralTint'>
         {frontmatter.title}
       </Text>
-      <Text textStyle='paragraph-1' mb='32px' color='neutralTint-600'>
+      <Text
+        textStyle='paragraph-1'
+        mb='32px'
+        color='neutralTint-600'
+        noOfLines={3}
+      >
         {excerpt}
       </Text>
     </Box>
