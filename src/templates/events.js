@@ -124,16 +124,18 @@ const EventsTemplate = ({ data }) => {
               <Text textStyle='smallLabel' color='primaryBlue'>
                 {formatDate(nearestEvent.event.date, "MMMM Do YYYY Z a")}
               </Text>
-              <Button
-                href={nearestEvent.event.eventLink}
-                as={Link}
-                isExternal
-                my='24px'
-                width='244px'
-                variant='primary'
-              >
-                Register
-              </Button>
+              {nearestEvent.event.eventLink && (
+                <Button
+                  href={nearestEvent.event.eventLink}
+                  as={Link}
+                  isExternal
+                  my='24px'
+                  width='244px'
+                  variant='primary'
+                >
+                  Register
+                </Button>
+              )}
             </Box>
           </Flex>
         </Flex>
