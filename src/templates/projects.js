@@ -44,7 +44,11 @@ const ProjectsPage = ({ data }) => {
       </Flex>
       <Flex px={{ base: "16px", sm: "32px" }} justifyContent='center'>
         <SimpleGrid
-          templateColumns={{ lg: "repeat(3, 1fr)" }}
+          templateColumns={{
+            base: "1fr",
+            md: "repeat(2, 1fr)",
+            lg: "repeat(3, 1fr)",
+          }}
           gap={{ base: "40px", md: "24px" }}
           flexWrap='wrap'
           w={{ lg: "1088px" }}
