@@ -23,16 +23,26 @@ import Pagination from "../components/Pagination";
 const EventsTemplate = ({ data }) => {
   const events = data.allIndexJson.eventData;
   const pageInfo = data.allIndexJson.pageInfo;
-  const nearestEvent = events.reduce((earliestEvent, event) => {
+  const nearestEvent = events.reduce((earliestEvent, { event }) => {
     const eventDate = dayjs(event.date);
     const currentDate = dayjs();
-    if (eventDate.isBefore(currentDate)) {
-      return earliestEvent;
-    } else if (earliestEvent && dayjs(earliestEvent.date).isBefore(eventDate)) {
-      return earliestEvent;
+
+    if (!earliestEvent && eventDate.isAfter(currentDate)) {
+      return event;
     }
-    return event;
+
+    if (
+      earliestEvent &&
+      eventDate.isAfter(currentDate) &&
+      eventDate.isBefore(dayjs(earliestEvent.date))
+    ) {
+      return event;
+    }
+
+    return earliestEvent;
   }, undefined);
+
+  const eventList = events.filter(({ event }) => event.id !== nearestEvent.id);
 
   return (
     <Layout title='Events' activePage='events'>
@@ -80,15 +90,15 @@ const EventsTemplate = ({ data }) => {
           <Flex
             flexDirection={{ base: "column", lg: "row" }}
             justifyContent={{
-              lg: nearestEvent.event.coverImage ? "center" : "flex-start",
+              lg: nearestEvent.coverImage ? "center" : "flex-start",
             }}
             width={{ lg: "1088px" }}
           >
-            {nearestEvent.event.coverImage && (
+            {nearestEvent.coverImage && (
               <Image
                 w={{ md: "704px", lg: "520px" }}
                 h='400px'
-                src={nearestEvent.event.coverImage.publicURL}
+                src={nearestEvent.coverImage.publicURL}
                 alt='Update laptop image'
                 mb='32px'
               />
@@ -103,7 +113,7 @@ const EventsTemplate = ({ data }) => {
                   color='primaryDarkGrey'
                   my={{ lg: "24px" }}
                 >
-                  {nearestEvent.event.title}
+                  {nearestEvent.title}
                 </Text>
                 <Box
                   bg='secondaryLime'
@@ -119,14 +129,14 @@ const EventsTemplate = ({ data }) => {
                 </Box>
               </Flex>
               <Text mb='24px' textStyle='bigQuote' color='secondaryMidGray'>
-                {nearestEvent.event.description}
+                {nearestEvent.description}
               </Text>
               <Text textStyle='smallLabel' color='primaryBlue'>
-                {formatDate(nearestEvent.event.date, "MMMM Do YYYY Z a")}
+                {formatDate(nearestEvent.date, "MMMM Do YYYY Z a")}
               </Text>
-              {nearestEvent.event.eventLink && (
+              {nearestEvent.eventLink && (
                 <Button
-                  href={nearestEvent.event.eventLink}
+                  href={nearestEvent.eventLink}
                   as={Link}
                   isExternal
                   my='24px'
@@ -157,7 +167,7 @@ const EventsTemplate = ({ data }) => {
           my='40px'
           width={{ lg: "1088px" }}
         >
-          {events.map(({ event }, index) => (
+          {eventList.map(({ event }, index) => (
             <EventCard {...event} key={index.toString()} />
           ))}
         </SimpleGrid>
@@ -183,6 +193,7 @@ export const eventQuery = graphql`
           description
           date
           title
+          # eventLink
           coverImage {
             publicURL
           }
