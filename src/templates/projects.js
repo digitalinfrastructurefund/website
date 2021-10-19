@@ -6,12 +6,10 @@ import { graphql } from "gatsby";
 import Layout from "../components/Layout";
 import Subscription from "../components/Subscription";
 import ProjectCard from "../components/ProjectCard";
-import Pagination from "../components/Pagination";
 
 const ProjectsPage = ({ data }) => {
   const { projectData } = data;
   const projects = projectData.projects;
-  const pageInfo = projectData.pageInfo;
 
   return (
     <Layout title='Projects' activePage='projects'>
@@ -46,7 +44,11 @@ const ProjectsPage = ({ data }) => {
       </Flex>
       <Flex px={{ base: "16px", sm: "32px" }} justifyContent='center'>
         <SimpleGrid
-          templateColumns={{ lg: "repeat(3, 1fr)" }}
+          templateColumns={{
+            base: "1fr",
+            md: "repeat(2, 1fr)",
+            lg: "repeat(3, 1fr)",
+          }}
           gap={{ base: "40px", md: "24px" }}
           flexWrap='wrap'
           w={{ lg: "1088px" }}
@@ -57,7 +59,6 @@ const ProjectsPage = ({ data }) => {
           ))}
         </SimpleGrid>
       </Flex>
-      <Pagination {...pageInfo} pagePath='/projects' />
       <Flex px={{ base: "16px", sm: "32px" }} my='40px' justifyContent='center'>
         <Subscription />
       </Flex>
@@ -66,12 +67,10 @@ const ProjectsPage = ({ data }) => {
 };
 
 export const projectPageQuery = graphql`
-  query ($skip: Int!, $limit: Int!) {
+  query {
     projectData: allMdx(
       filter: { frontmatter: { type: { eq: "project" } } }
       sort: { fields: frontmatter___date, order: DESC }
-      limit: $limit
-      skip: $skip
     ) {
       projects: nodes {
         frontmatter {
