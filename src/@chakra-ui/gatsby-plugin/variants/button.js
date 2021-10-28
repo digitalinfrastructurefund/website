@@ -20,7 +20,7 @@ export const buttonVariants = {
         borderRadius: "48px",
         padding: "16px 24px",
         textStyle: "buttonLabel",
-        textTransform: "uppercase",
+        textTransform: "capitalize",
       },
       secondary: {
         bg: "white",
@@ -28,12 +28,16 @@ export const buttonVariants = {
         borderRadius: "48px",
         padding: "16px 24px",
         textStyle: "buttonLabel",
-        textTransform: "uppercase",
+        textTransform: "capitalize",
       },
       outline: {
         padding: "16px",
         border: "2px solid",
         borderColor: "primaryBlue",
+
+        _hover: {
+          boxShadow: "none",
+        },
       },
     },
   },

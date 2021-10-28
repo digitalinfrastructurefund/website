@@ -11,7 +11,7 @@ const EventCard = ({ title, description, date, coverImage, isNextEvent }) => {
     <Box
       width={{ base: "288px", md: "340px" }}
       borderRadius='24px'
-      boxShadow=' 0px 1px 4px 1px rgba(49, 50, 51, 0.1)'
+      boxShadow='0px 1px 4px 1px rgba(49, 50, 51, 0.1)'
       border='2px solid transparent'
       _hover={{
         borderColor: "primaryBlue",

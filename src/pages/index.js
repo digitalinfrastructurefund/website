@@ -196,19 +196,21 @@ const IndexPage = ({ data }) => {
 
       {/* Events */}
       <Section title='Events' linkText='view all events' link='/events/'>
-        <Stack
-          justifyContent='flex-start'
-          alignItems='center'
-          direction={{ base: "column", md: "row" }}
-          spacing='24px'
-          alignSelf='stretch'
-          maxW={{ md: "704px", lg: "100%" }}
-          overflowX='auto'
+        <SimpleGrid
+          templateColumns={{
+            base: "1fr",
+            md: "repeat(2, 1fr)",
+            lg: "repeat(3, 1fr)",
+          }}
+          columnGap={{ base: "24px", lg: "16px" }}
+          rowGap='40px'
+          my='40px'
+          width={{ lg: "1088px" }}
         >
           {events.map(({ event }) => (
             <EventCard key={event.id} {...event} />
           ))}
-        </Stack>
+        </SimpleGrid>
       </Section>
       {/* Updates */}
       <Section title='Updates' linkText='view all updates' link='/updates/'>

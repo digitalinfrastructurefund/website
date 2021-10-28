@@ -35,7 +35,7 @@ const Footer = () => (
             <Text textStyle='paragraph-1' color='primaryDarkGrey' mb='8px'>
               Digital • Infrastructure •{" "}
               <Text as='span' color='primaryBlue'>
-                Funds
+                Fund
               </Text>
             </Text>
             <Text textStyle='paragraph-2' color='primaryBlue' mb='24px'>
