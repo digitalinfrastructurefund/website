@@ -26,9 +26,6 @@ const ResourcesCard = ({ quote, author, title, link, linkText }) => (
       variant='primary'
       width='100%'
       mt='20px'
-      _hover={{
-        textDecoration: "none",
-      }}
     >
       {linkText ? linkText : "Read more"}
     </Button>
