@@ -26,7 +26,11 @@ const ProjectsPage = ({ data }) => {
             width='100%'
           >
             <Text
-              textStyle={{ base: "subHeading", md: "smallHeader" }}
+              textStyle={{
+                base: "subHeading",
+                md: "smallHeader",
+                lg: "defaultHeader",
+              }}
               color='primaryDarkGrey'
             >
               Projects

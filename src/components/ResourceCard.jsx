@@ -8,7 +8,7 @@ const ResourcesCard = ({ quote, author, title, link, linkText }) => (
     boxShadow='0px 1px 4px 1px rgba(49, 50, 51, 0.3)'
     width={{ base: "288px", md: "340px", lg: "348px" }}
   >
-    <VStack alignItems='flex-start' spacing='16px' minH='200px'>
+    <VStack alignItems='flex-start' spacing='16px' height='240px'>
       <Text textStyle='paragraph-1' color='primaryBlue' noOfLines={2}>
         "{quote}”
       </Text>
@@ -25,7 +25,7 @@ const ResourcesCard = ({ quote, author, title, link, linkText }) => (
       isExternal
       variant='primary'
       width='100%'
-      mt='48px'
+      mt='20px'
       _hover={{
         textDecoration: "none",
       }}
