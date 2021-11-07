@@ -245,7 +245,7 @@ const ProjectPage = ({ data }) => {
 };
 
 export const projectQuery = graphql`
-  query ($id: String) {
+  query ($id: String, $slug: String) {
     post: mdx(id: { eq: $id }) {
       frontmatter {
         title
@@ -274,7 +274,12 @@ export const projectQuery = graphql`
     }
 
     updateData: allMdx(
-      filter: { frontmatter: { type: { eq: "update" } } }
+      filter: {
+        frontmatter: {
+          type: { eq: "update" }
+          relatedProjectSlug: { eq: $slug }
+        }
+      }
       sort: { fields: frontmatter___date, order: DESC }
       limit: 3
     ) {
