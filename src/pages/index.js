@@ -140,9 +140,9 @@ const IndexPage = ({ data }) => {
               textStyle={{ base: "paragraph-1", md: "bigQuote" }}
               color={{ base: "secondaryMidGray", md: "primaryDarkGrey" }}
             >
-              Digital infrastructure is the code, policies and standards
+              Digital infrastructure is the code, policies, and standards
               powering the technology that permeates every aspect of life, such
-              as hospitals, banking and social media.
+              as hospitals, banking, and social media.
             </Text>
             <Text
               textStyle={{ base: "paragraph-1", md: "bigQuote" }}
@@ -178,8 +178,8 @@ const IndexPage = ({ data }) => {
               maintained, for the benefit of everyone.
             </Text>
             <Text textStyle='paragraph-1' color='secondaryMidGray'>
-              Our partners fund work in this space regularly, if you’d like to
-              propose a project or join our funding partners contact us using
+              Our partners fund work in this space regularly. If you’d like to
+              propose a project or join our funding partners, contact us using
               the form below, and we’ll be in touch.
             </Text>
           </VStack>
