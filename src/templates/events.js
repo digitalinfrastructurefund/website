@@ -42,7 +42,7 @@ const EventsTemplate = ({ data }) => {
     return earliestEvent;
   }, undefined);
 
-  const eventList = events.filter(({ event }) => event.id !== nearestEvent.id);
+  const eventList = events.filter(({ event }) => event.id !== nearestEvent?.id);
 
   return (
     <Layout title='Events' activePage='events'>

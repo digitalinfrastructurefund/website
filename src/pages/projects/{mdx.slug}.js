@@ -90,42 +90,44 @@ const ProjectPage = ({ data }) => {
           </Flex>
         </Box>
       </Flex>
-      <Section
-        title={
-          <Flex
-            flexDirection='column-reverse'
-            alignItems={{ base: "center", md: "flex-start" }}
-          >
-            <Text textStyle='paragraph-1' color='primaryBlue'>
-              From this Project
-            </Text>
-            <Text
-              textAlign='center'
-              as='h3'
-              textStyle={{ base: "subHeading", md: "smallHeader" }}
-              color='neutralTint'
+      {updates.length && (
+        <Section
+          title={
+            <Flex
+              flexDirection='column-reverse'
+              alignItems={{ base: "center", md: "flex-start" }}
             >
-              Latest Updates
-            </Text>
-          </Flex>
-        }
-      >
-        <SimpleGrid
-          templateColumns={{
-            base: "1fr",
-            md: "repeat(2, 1fr)",
-            lg: "repeat(3, 1fr)",
-          }}
-          columnGap={{ base: "24px", lg: "16px" }}
-          rowGap='40px'
-          my='40px'
-          width={{ lg: "1088px" }}
+              <Text textStyle='paragraph-1' color='primaryBlue'>
+                From this Project
+              </Text>
+              <Text
+                textAlign='center'
+                as='h3'
+                textStyle={{ base: "subHeading", md: "smallHeader" }}
+                color='neutralTint'
+              >
+                Latest Updates
+              </Text>
+            </Flex>
+          }
         >
-          {updates.map((update) => (
-            <UpdateCard {...update} key={update.id} />
-          ))}
-        </SimpleGrid>
-      </Section>
+          <SimpleGrid
+            templateColumns={{
+              base: "1fr",
+              md: "repeat(2, 1fr)",
+              lg: "repeat(3, 1fr)",
+            }}
+            columnGap={{ base: "24px", lg: "16px" }}
+            rowGap='40px'
+            my='40px'
+            width={{ lg: "1088px" }}
+          >
+            {updates.map((update) => (
+              <UpdateCard {...update} key={update.id} />
+            ))}
+          </SimpleGrid>
+        </Section>
+      )}
 
       {team && (
         <Section
@@ -245,7 +247,7 @@ const ProjectPage = ({ data }) => {
 };
 
 export const projectQuery = graphql`
-  query ($id: String) {
+  query ($id: String, $slug: String) {
     post: mdx(id: { eq: $id }) {
       frontmatter {
         title
@@ -274,7 +276,12 @@ export const projectQuery = graphql`
     }
 
     updateData: allMdx(
-      filter: { frontmatter: { type: { eq: "update" } } }
+      filter: {
+        frontmatter: {
+          type: { eq: "update" }
+          relatedProjectSlug: { eq: $slug }
+        }
+      }
       sort: { fields: frontmatter___date, order: DESC }
       limit: 3
     ) {
