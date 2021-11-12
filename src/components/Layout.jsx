@@ -26,7 +26,7 @@ const Layout = ({ title, children, activePage }) => (
 
       {/* <!-- Open Graph / Facebook --> */}
       <meta property='og:type' content='website' />
-      <meta property='og:url' content='https://digitalinfrastrcuture.fund/' />
+      <meta property='og:url' content='https://digitalinfrastructure.fund/' />
       <meta
         property='og:title'
         content='Digital Infrastructure
@@ -42,7 +42,7 @@ const Layout = ({ title, children, activePage }) => (
       <meta property='twitter:card' content='summary_large_image' />
       <meta
         property='twitter:url'
-        content='https://digitalinfrastrcuture.fund/'
+        content='https://digitalinfrastructure.fund/'
       />
       <meta
         property='twitter:title'
