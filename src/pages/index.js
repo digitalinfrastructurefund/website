@@ -172,7 +172,7 @@ const IndexPage = ({ data }) => {
             maxW={{ md: "576px", lg: "380px" }}
           >
             <Text textStyle='paragraph-1' color='secondaryMidGray'>
-              We’re creating a community of researchers an practitioners to be
+              We’re creating a community of researchers and practitioners to better
               understand the problem and to work together toward our common
               goal: a commons of technology, sustainably developed and
               maintained, for the benefit of everyone.
