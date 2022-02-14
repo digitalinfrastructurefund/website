@@ -1,6 +1,19 @@
 import "@fontsource/urbanist";
 import * as React from "react";
-import { Flex, SimpleGrid, Text, VStack } from "@chakra-ui/react";
+import {
+  Flex,
+  FormControl,
+  FormLabel,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  Select,
+  SimpleGrid,
+  Stack,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
+import { AiOutlineSearch } from "react-icons/ai";
 
 import Layout from "../components/Layout";
 import Subscription from "../components/Subscription";
@@ -46,7 +59,69 @@ const ResourcesPage = ({ data }) => {
           </Text>
         </VStack>
       </Flex>
-
+      <Flex
+        justifyContent={"center"}
+        alignItems={"center"}
+        my='48px'
+        px={{ base: "16px", sm: "32px" }}
+      >
+        <Stack
+          width='100%'
+          spacing={"16px"}
+          direction={{ base: "column", md: "row" }}
+          alignItems={"center"}
+          maxW={{ lg: "1088px" }}
+        >
+          <FormControl maxW={{ lg: "666px" }}>
+            <FormLabel fontStyle='paragraph-2' color='formLabel' mb='8px'>
+              Search
+            </FormLabel>
+            <InputGroup>
+              <InputLeftElement
+                pointerEvents='none'
+                children={<AiOutlineSearch color='gray.300' />}
+              />
+              <Input
+                type='text'
+                placeholder='Search by project'
+                borderRadius={"100px"}
+                borderWidth={"0.5px"}
+                borderColor={"#B7C2D9"}
+                fontStyle='paragraph-2'
+                color='#141415'
+              />
+            </InputGroup>
+          </FormControl>
+          <FormControl maxW={{ md: "195px" }}>
+            <FormLabel fontStyle='paragraph-2' color='formLabel' mb='8px'>
+              Sort by
+            </FormLabel>
+            <Select
+              borderRadius={"100px"}
+              borderWidth={"0.5px"}
+              borderColor={"#B7C2D9"}
+              fontStyle='paragraph-2'
+              color='#141415'
+            >
+              <option>Most recent</option>
+            </Select>
+          </FormControl>
+          <FormControl maxW={{ md: "195px" }}>
+            <FormLabel fontStyle='paragraph-2' color='formLabel' mb='8px'>
+              Type
+            </FormLabel>
+            <Select
+              borderRadius={"100px"}
+              borderWidth={"0.5px"}
+              borderColor={"#B7C2D9"}
+              fontStyle='paragraph-2'
+              color='#141415'
+            >
+              <option>All resources</option>
+            </Select>
+          </FormControl>
+        </Stack>
+      </Flex>
       <Flex
         px={{ base: "16px", md: "32px" }}
         justifyContent='center'
@@ -60,7 +135,7 @@ const ResourcesPage = ({ data }) => {
           }}
           columnGap={{ base: "24px", lg: "16px" }}
           rowGap='40px'
-          my='40px'
+          mb='40px'
           width={{ lg: "1088px" }}
         >
           {getAllResources(resourcesNodes).map((resource, index) => (
