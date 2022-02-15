@@ -19,11 +19,21 @@ import Layout from "../components/Layout";
 import Subscription from "../components/Subscription";
 import { graphql } from "gatsby";
 import ResourcesCard from "../components/ResourceCard";
-import { getAllResources } from "../lib/util";
+import { getAllResources, sortResources } from "../lib/util";
 
 const ResourcesPage = ({ data }) => {
   const { resourcesData } = data;
   const resourcesNodes = resourcesData.nodes;
+  const [resources, setResources] = React.useState(
+    getAllResources(resourcesNodes)
+  );
+  const [sortBy, setSortBy] = React.useState("MOST_RECENT");
+
+  const handleOnChangeSortBy = ({ target }) => {
+    setSortBy(target.value);
+    const sortedResources = sortResources(resources, sortBy);
+    setResources(sortedResources);
+  };
 
   return (
     <Layout title='Resources' activePage='resources'>
@@ -102,8 +112,11 @@ const ResourcesPage = ({ data }) => {
               borderColor={"#B7C2D9"}
               fontStyle='paragraph-2'
               color='#141415'
+              defaultValue={sortBy}
+              onChange={handleOnChangeSortBy}
             >
-              <option>Most recent</option>
+              <option value='MOST_RECENT'>Most recent</option>
+              <option value='LEAST_RECENT'>Least recent</option>
             </Select>
           </FormControl>
           <FormControl maxW={{ md: "195px" }}>
@@ -138,7 +151,7 @@ const ResourcesPage = ({ data }) => {
           mb='40px'
           width={{ lg: "1088px" }}
         >
-          {getAllResources(resourcesNodes).map((resource, index) => (
+          {resources.map((resource, index) => (
             <ResourcesCard {...resource} key={index.toString()} />
           ))}
         </SimpleGrid>
@@ -168,6 +181,7 @@ export const resourcesQuery = graphql`
         }
         frontmatter {
           title
+          date
         }
       }
     }
