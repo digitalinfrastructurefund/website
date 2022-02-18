@@ -173,6 +173,27 @@ const EventsTemplate = ({ data }) => {
         </SimpleGrid>
       </Flex>
       <Pagination {...pageInfo} pagePath='/events' />
+      <Flex
+        px={{ base: "16px", sm: "32px" }}
+        my={{ base: "100px", md: "100px" }}
+        justifyContent={{ md: "center", lg: "center" }}
+        alignItems={{ lg: "center" }}
+      >
+        <VStack
+          spacing='24px'
+          alignItems={{ base: "center", md: "center" }}
+          textAlign={{ base: "center", md: "center" }}
+          width={{ lg: "1088px" }}
+        >
+          <Text
+            textStyle={{ base: "paragraph-2", lg: "bigQuote" }}
+            color='primaryDarkGrey'
+            spacing='24px'
+          >
+            All of our events are subject to the <a href="https://www.contributor-covenant.org/" rel="noreferrer" target="_blank">Contributor Covenant Code of Conduct</a>.{" "}
+          </Text>
+        </VStack>
+      </Flex>
       <Flex px={{ base: "16px" }} my={{ lg: "100px" }} justifyContent='center'>
         <Subscription />
       </Flex>
