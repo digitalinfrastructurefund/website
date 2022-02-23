@@ -13,6 +13,7 @@ import { IoLogoSlack } from "react-icons/io";
 
 import ocLogo from "../images/oc-full-logo.png";
 import ccDesignLogo from "../images/cc-design.svg";
+import { Link } from "gatsby"
 
 const Footer = () => (
   <Flex px='16px' flexDir='column' alignItems='center' my='32px'>
@@ -72,6 +73,11 @@ const Footer = () => (
                 borderRadius='100px'
                 borderColor='neutralTint-400'
                 borderWidth='1px'
+                as={Link}
+                to='https://dif.fireside.fm'
+                alt='Digital Infrastructure Fund Podcast'
+                target='_blank'
+                isExternal
               >
                 <TiMicrophone size='20px' color='#76777A' />
               </Button>
@@ -83,6 +89,11 @@ const Footer = () => (
                 borderRadius='100px'
                 borderColor='neutralTint-400'
                 borderWidth='1px'
+                as={Link}
+                to='https://twitter.com/DigInfFund/'
+                alt='@DigInfFund'
+                target='_blank'
+                isExternal
               >
                 <TiSocialTwitter size='20px' color='#76777A' />
               </Button>
@@ -94,6 +105,11 @@ const Footer = () => (
                 borderRadius='100px'
                 borderColor='neutralTint-400'
                 borderWidth='1px'
+                as={Link}
+                to='https://digi-infrastructure.slack.com'
+                alt='@DigInfFund'
+                target='_blank'
+                isExternal
               >
                 <IoLogoSlack size='20px' color='#76777A' />
               </Button>
@@ -107,7 +123,14 @@ const Footer = () => (
           <Text textStyle='smallLabel' color='neutralTint'>
             Powered by:
           </Text>
-          <Image w='151px' h='29px' src={ocLogo} alt='Open collective logo' />
+          <Link
+            to='https://opencollective.com'
+            alt='Open Collective'
+            target='_blank'
+            isExternal
+          >
+            <Image w='151px' h='29px' src={ocLogo} alt='Open collective logo' />
+          </Link>
           <Image w='144px' h='36px' src={ccDesignLogo} alt='Design available' />
         </VStack>
       </Flex>
