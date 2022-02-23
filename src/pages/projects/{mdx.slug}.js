@@ -261,6 +261,7 @@ export const projectQuery = graphql`
         team {
           name
           role
+          link
           image {
             publicURL
           }

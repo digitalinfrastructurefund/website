@@ -1,8 +1,13 @@
 import * as React from "react";
 import { Avatar, Text, HStack, VStack } from "@chakra-ui/react";
+import { Link } from "gatsby";
 
-const TeamMemberCard = ({ name, role, image }) => (
-  <HStack spacing='24px'>
+
+const TeamMemberCard = ({ name, role, image, link }) => (
+  <HStack
+    spacing='24px'
+    as={Link}
+    to={link}>
     <Avatar
       borderRadius='24px'
       w='104px'
