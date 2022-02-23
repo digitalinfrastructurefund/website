@@ -42,7 +42,13 @@ const EventsTemplate = ({ data }) => {
     return earliestEvent;
   }, undefined);
 
-  const eventList = events.filter(({ event }) => event.id !== nearestEvent?.id);
+  const eventList = events
+    .filter(({ event }) => event.id !== nearestEvent?.id)
+    // Sort from the most recent first
+    .map((event, index, arr) => {
+      event.id = index+1
+      return event
+    })
 
   return (
     <Layout title='Events' activePage='events'>
