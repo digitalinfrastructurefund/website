@@ -19,9 +19,9 @@ import digitalInfrastructureIllustration from "../images/digital-infrastructure-
 import digitalInfrastructureIllustrationMd from "../images/digital-infrastructure-md.png";
 import digitalInfrastructureIllustrationLg from "../images/digital-infrastructure-lg.png";
 import whatIsDIIllustrationSM from "../images/what-is-DI-sm.png";
-import openCollectiveLogo from "../images/opencollective-logo.png";
 import mozillaLogo from "../images/mozilla-logo.png";
 import omidyarNetwork from "../images/on-logo.png";
+import fordFoundation from "../images/ford-logo.jpg";
 import logo2 from "../images/logo-2.png";
 import openSocietyLogo from "../images/open-society-logo.png";
 import Layout from "../components/Layout";
@@ -327,11 +327,21 @@ const IndexPage = ({ data }) => {
           width={{ md: "704px", lg: "1088px" }}
           justifyItems='center'
         >
-          <Image h='73px' w='73px' src={openSocietyLogo} />
-          <Image h='73px' w='73px' src={openCollectiveLogo} />
-          <Image src={logo2} h='73px' w='73px' />
-          <Image src={mozillaLogo} h='73px' w='73px' />
-          <Image src={omidyarNetwork} h='73px' w='73px' />
+          <Link as={Link} to='https://sloan.org/' isExternal>
+            <Image src={logo2} h='73px' w='73px' alt='Alfred P. Sloan Foundation'/>
+          </Link>
+          <Link as={Link} to='https://www.fordfoundation.org/' isExternal>
+            <Image src={fordFoundation} h='73px' w='73px' alt='Ford Foundation'/>
+          </Link>
+          <Link as={Link} to='https://foundation.mozilla.org/en/' isExternal>
+            <Image src={mozillaLogo} h='73px' w='73px' alt='Mozilla Foundation'/>
+          </Link>
+          <Link as={Link} to='https://omidyar.com/' isExternal>
+            <Image src={omidyarNetwork} h='73px' w='73px' alt='Omidyar Network'/>
+          </Link>
+          <Link as={Link} to='https://www.opensocietyfoundations.org' isExternal>
+            <Image h='73px' w='73px' src={openSocietyLogo} alt='Open Society Foundations' />
+          </Link>
         </SimpleGrid>
       </Flex>
       <ContactUs />
