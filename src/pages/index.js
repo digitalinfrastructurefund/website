@@ -327,19 +327,19 @@ const IndexPage = ({ data }) => {
           width={{ md: "704px", lg: "1088px" }}
           justifyItems='center'
         >
-          <Link as={Link} to='https://sloan.org/' isExternal>
+          <Link as={Link} to='https://sloan.org/' target='_blank' isExternal>
             <Image src={logo2} h='73px' w='73px' alt='Alfred P. Sloan Foundation'/>
           </Link>
-          <Link as={Link} to='https://www.fordfoundation.org/' isExternal>
+          <Link as={Link} to='https://www.fordfoundation.org/' target='_blank' isExternal>
             <Image src={fordFoundation} h='73px' w='73px' alt='Ford Foundation'/>
           </Link>
-          <Link as={Link} to='https://foundation.mozilla.org/en/' isExternal>
+          <Link as={Link} to='https://foundation.mozilla.org/en/' target='_blank' isExternal>
             <Image src={mozillaLogo} h='73px' w='73px' alt='Mozilla Foundation'/>
           </Link>
-          <Link as={Link} to='https://omidyar.com/' isExternal>
+          <Link as={Link} to='https://omidyar.com/' target='_blank' isExternal>
             <Image src={omidyarNetwork} h='73px' w='73px' alt='Omidyar Network'/>
           </Link>
-          <Link as={Link} to='https://www.opensocietyfoundations.org' isExternal>
+          <Link as={Link} to='https://www.opensocietyfoundations.org' target='_blank' isExternal>
             <Image h='73px' w='73px' src={openSocietyLogo} alt='Open Society Foundations' />
           </Link>
         </SimpleGrid>

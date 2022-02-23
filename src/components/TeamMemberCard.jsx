@@ -7,7 +7,9 @@ const TeamMemberCard = ({ name, role, image, link }) => (
   <HStack
     spacing='24px'
     as={Link}
-    to={link}>
+    to={link}
+    target='_blank'
+  >
     <Avatar
       borderRadius='24px'
       w='104px'
