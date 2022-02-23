@@ -262,9 +262,7 @@ export const projectQuery = graphql`
           name
           role
           link
-          image {
-            publicURL
-          }
+          image
         }
         resources {
           quote
