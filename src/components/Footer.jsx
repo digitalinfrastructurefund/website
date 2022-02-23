@@ -131,7 +131,14 @@ const Footer = () => (
           >
             <Image w='151px' h='29px' src={ocLogo} alt='Open collective logo' />
           </Link>
-          <Image w='144px' h='36px' src={ccDesignLogo} alt='Design available' />
+          <Link
+            to='https://www.figma.com/file/omAmFnZDmHFfWPxqOQqp4a/Digital-Infrastructure-Fund---Website?node-id=376%3A13923'
+            alt='Website Designs on Figma'
+            target='_blank'
+            isExternal
+          >
+            <Image w='144px' h='36px' src={ccDesignLogo} alt='Design available' />
+          </Link>
         </VStack>
       </Flex>
     </Box>
