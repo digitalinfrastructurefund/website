@@ -144,7 +144,7 @@ const EventsTemplate = ({ data }) => {
                 <Button
                   href={nearestEvent.eventLink}
                   as={Link}
-                  isExternal
+                  target='_blank'
                   my='24px'
                   width='244px'
                   variant='primary'
