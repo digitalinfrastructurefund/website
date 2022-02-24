@@ -327,19 +327,19 @@ const IndexPage = ({ data }) => {
           width={{ md: "704px", lg: "1088px" }}
           justifyItems='center'
         >
-          <Link as={Link} to='https://sloan.org/' target='_blank' isExternal>
+          <Link as={Link} to='https://sloan.org/' target='_blank'>
             <Image src={logo2} h='73px' w='73px' alt='Alfred P. Sloan Foundation'/>
           </Link>
-          <Link as={Link} to='https://www.fordfoundation.org/' target='_blank' isExternal>
+          <Link as={Link} to='https://www.fordfoundation.org/' target='_blank'>
             <Image src={fordFoundation} h='73px' w='73px' alt='Ford Foundation'/>
           </Link>
-          <Link as={Link} to='https://foundation.mozilla.org/en/' target='_blank' isExternal>
+          <Link as={Link} to='https://foundation.mozilla.org/en/' target='_blank'>
             <Image src={mozillaLogo} h='73px' w='73px' alt='Mozilla Foundation'/>
           </Link>
-          <Link as={Link} to='https://omidyar.com/' target='_blank' isExternal>
+          <Link as={Link} to='https://omidyar.com/' target='_blank'>
             <Image src={omidyarNetwork} h='73px' w='73px' alt='Omidyar Network'/>
           </Link>
-          <Link as={Link} to='https://www.opensocietyfoundations.org' target='_blank' isExternal>
+          <Link as={Link} to='https://www.opensocietyfoundations.org' target='_blank'>
             <Image h='73px' w='73px' src={openSocietyLogo} alt='Open Society Foundations' />
           </Link>
         </SimpleGrid>
@@ -394,7 +394,13 @@ export const IndexPageQuery = graphql`
         excerpt
       }
     }
-    allIndexJson(limit: 3) {
+    allIndexJson(
+      limit: 3
+      sort: {
+        fields: [date]
+        order: [DESC]
+      }
+    ) {
       eventData: edges {
         event: node {
           id

@@ -22,7 +22,7 @@ const ResourcesCard = ({ quote, author, title, link, linkText }) => (
     <Button
       as={Link}
       href={link}
-      isExternal
+      target='_blank'
       variant='primary'
       width='100%'
       mt='20px'

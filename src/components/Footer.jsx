@@ -77,7 +77,6 @@ const Footer = () => (
                 to='https://dif.fireside.fm'
                 alt='Digital Infrastructure Fund Podcast'
                 target='_blank'
-                isExternal
               >
                 <TiMicrophone size='20px' color='#76777A' />
               </Button>
@@ -93,7 +92,6 @@ const Footer = () => (
                 to='https://twitter.com/DigInfFund/'
                 alt='@DigInfFund'
                 target='_blank'
-                isExternal
               >
                 <TiSocialTwitter size='20px' color='#76777A' />
               </Button>
@@ -109,7 +107,6 @@ const Footer = () => (
                 to='https://digi-infrastructure.slack.com'
                 alt='@DigInfFund'
                 target='_blank'
-                isExternal
               >
                 <IoLogoSlack size='20px' color='#76777A' />
               </Button>
@@ -127,7 +124,6 @@ const Footer = () => (
             to='https://opencollective.com'
             alt='Open Collective'
             target='_blank'
-            isExternal
           >
             <Image w='151px' h='29px' src={ocLogo} alt='Open collective logo' />
           </Link>
@@ -135,7 +131,6 @@ const Footer = () => (
             to='https://www.figma.com/file/omAmFnZDmHFfWPxqOQqp4a/Digital-Infrastructure-Fund---Website?node-id=376%3A13923'
             alt='Website Designs on Figma'
             target='_blank'
-            isExternal
           >
             <Image w='144px' h='36px' src={ccDesignLogo} alt='Design available' />
           </Link>
