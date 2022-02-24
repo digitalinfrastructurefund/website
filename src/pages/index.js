@@ -394,7 +394,13 @@ export const IndexPageQuery = graphql`
         excerpt
       }
     }
-    allIndexJson(limit: 3) {
+    allIndexJson(
+      limit: 3
+      sort: {
+        fields: [date]
+        order: [DESC]
+      }
+    ) {
       eventData: edges {
         event: node {
           id
