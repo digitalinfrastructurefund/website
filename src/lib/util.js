@@ -11,7 +11,7 @@ export const getAllResources = (nodes) => {
       };
     });
 
-    return [...prevNode, ...resources];
+    return [...prevNode, ...resources].map((r, i) => ({ ...r, id: i }));
   }, []);
 };
 

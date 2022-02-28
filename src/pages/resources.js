@@ -14,12 +14,22 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { AiOutlineSearch } from "react-icons/ai";
+import * as JsSearch from "js-search";
 
 import Layout from "../components/Layout";
 import Subscription from "../components/Subscription";
 import { graphql } from "gatsby";
 import ResourcesCard from "../components/ResourceCard";
 import { getAllResources, sortResources } from "../lib/util";
+
+const getSearch = (resources) => {
+  const search = new JsSearch.Search("id");
+  search.addIndex("title");
+  search.addIndex("quote");
+  search.addIndex("author");
+  search.addDocuments(resources);
+  return search;
+};
 
 const ResourcesPage = ({ data }) => {
   const { resourcesData } = data;
@@ -28,12 +38,36 @@ const ResourcesPage = ({ data }) => {
     getAllResources(resourcesNodes)
   );
   const [sortBy, setSortBy] = React.useState("MOST_RECENT");
+  const [searchQuery, setSearchQuery] = React.useState("");
+  const [search, setSearch] = React.useState([]);
+  const [searchResults, setSearchResults] = React.useState([]);
+
+  React.useEffect(() => {
+    if (!resources.length) {
+      return;
+    }
+    const search = getSearch(resources);
+    setSearch(search);
+  }, [resources]);
 
   const handleOnChangeSortBy = ({ target }) => {
     setSortBy(target.value);
-    const sortedResources = sortResources(resources, sortBy);
-    setResources(sortedResources);
+    if (searchQuery === "") {
+      const sortedResources = sortResources(resources, sortBy);
+      setResources(sortedResources);
+    } else {
+      const sortedResources = sortResources(searchResults, sortBy);
+      setSearchResults(sortedResources);
+    }
   };
+
+  const handleOnChangeSearch = ({ target }) => {
+    setSearchQuery(target.value);
+    const queryResult = search.search(target.value);
+    setSearchResults(queryResult);
+  };
+
+  const queryResults = searchQuery === "" ? resources : searchResults;
 
   return (
     <Layout title='Resources' activePage='resources'>
@@ -99,6 +133,8 @@ const ResourcesPage = ({ data }) => {
                 borderColor={"#B7C2D9"}
                 fontStyle='paragraph-2'
                 color='#141415'
+                onChange={handleOnChangeSearch}
+                value={searchQuery}
               />
             </InputGroup>
           </FormControl>
@@ -151,7 +187,7 @@ const ResourcesPage = ({ data }) => {
           mb='40px'
           width={{ lg: "1088px" }}
         >
-          {resources.map((resource, index) => (
+          {queryResults.map((resource, index) => (
             <ResourcesCard {...resource} key={index.toString()} />
           ))}
         </SimpleGrid>

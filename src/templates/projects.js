@@ -1,11 +1,23 @@
 import "@fontsource/urbanist";
 import * as React from "react";
-import { Box, Flex, Text, VStack, SimpleGrid } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Text,
+  VStack,
+  SimpleGrid,
+  FormControl,
+  FormLabel,
+  InputGroup,
+  InputLeftElement,
+  Input,
+} from "@chakra-ui/react";
 import { graphql } from "gatsby";
 
 import Layout from "../components/Layout";
 import Subscription from "../components/Subscription";
 import ProjectCard from "../components/ProjectCard";
+import { AiOutlineSearch } from "react-icons/ai";
 
 const ProjectsPage = ({ data }) => {
   const { projectData } = data;
@@ -44,6 +56,37 @@ const ProjectsPage = ({ data }) => {
               maintained, and sustained.
             </Text>
           </VStack>
+        </Box>
+      </Flex>
+      <Flex
+        justifyContent={"center"}
+        alignItems={"center"}
+        my='48px'
+        px={{ base: "16px", sm: "32px" }}
+      >
+        <Box w={{ lg: "1088px" }}>
+          <FormControl maxW={{ lg: "666px" }}>
+            <FormLabel fontStyle='paragraph-2' color='formLabel' mb='8px'>
+              Search
+            </FormLabel>
+            <InputGroup>
+              <InputLeftElement
+                pointerEvents='none'
+                children={<AiOutlineSearch color='gray.300' />}
+              />
+              <Input
+                type='text'
+                placeholder='Search by project'
+                borderRadius={"100px"}
+                borderWidth={"0.5px"}
+                borderColor={"#B7C2D9"}
+                fontStyle='paragraph-2'
+                color='#141415'
+                onChange={() => {}}
+                // value={searchQuery}
+              />
+            </InputGroup>
+          </FormControl>
         </Box>
       </Flex>
       <Flex px={{ base: "16px", sm: "32px" }} justifyContent='center'>
