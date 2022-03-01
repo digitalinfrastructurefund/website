@@ -15,12 +15,13 @@ import {
 } from "@chakra-ui/react";
 import { AiOutlineSearch } from "react-icons/ai";
 import * as JsSearch from "js-search";
+import { uniq } from "lodash";
 
 import Layout from "../components/Layout";
 import Subscription from "../components/Subscription";
 import { graphql } from "gatsby";
 import ResourcesCard from "../components/ResourceCard";
-import { getAllResources, sortResources } from "../lib/util";
+import { filterResources, getAllResources, sortResources } from "../lib/util";
 
 const getSearch = (resources) => {
   const search = new JsSearch.Search("id");
@@ -34,40 +35,46 @@ const getSearch = (resources) => {
 const ResourcesPage = ({ data }) => {
   const { resourcesData } = data;
   const resourcesNodes = resourcesData.nodes;
-  const [resources, setResources] = React.useState(
-    getAllResources(resourcesNodes)
-  );
+  const [resources] = React.useState(getAllResources(resourcesNodes));
   const [sortBy, setSortBy] = React.useState("MOST_RECENT");
+  const [filterBy, setFilterBy] = React.useState("");
   const [searchQuery, setSearchQuery] = React.useState("");
   const [search, setSearch] = React.useState([]);
-  const [searchResults, setSearchResults] = React.useState([]);
 
   React.useEffect(() => {
     if (!resources.length) {
       return;
     }
+
     const search = getSearch(resources);
     setSearch(search);
   }, [resources]);
 
-  const handleOnChangeSortBy = ({ target }) => {
-    setSortBy(target.value);
-    if (searchQuery === "") {
-      const sortedResources = sortResources(resources, sortBy);
-      setResources(sortedResources);
-    } else {
-      const sortedResources = sortResources(searchResults, sortBy);
-      setSearchResults(sortedResources);
+  const types = React.useMemo(() => {
+    if (!resources.length) {
+      return ["All Resources"];
     }
-  };
 
-  const handleOnChangeSearch = ({ target }) => {
-    setSearchQuery(target.value);
-    const queryResult = search.search(target.value);
-    setSearchResults(queryResult);
-  };
+    const allTypes = uniq(resources.filter((r) => r?.type).map((r) => r.type));
 
-  const queryResults = searchQuery === "" ? resources : searchResults;
+    return ["All Resources", ...allTypes];
+  }, [resources]);
+
+  const resourcesInView = React.useMemo(() => {
+    let allResources = resources;
+
+    if (searchQuery) {
+      allResources = search.search(searchQuery);
+    }
+
+    allResources = sortResources(allResources, sortBy);
+
+    if (filterBy) {
+      allResources = filterResources(allResources, filterBy);
+    }
+
+    return allResources;
+  }, [resources, searchQuery, filterBy, sortBy, search]);
 
   return (
     <Layout title='Resources' activePage='resources'>
@@ -133,7 +140,7 @@ const ResourcesPage = ({ data }) => {
                 borderColor={"#B7C2D9"}
                 fontStyle='paragraph-2'
                 color='#141415'
-                onChange={handleOnChangeSearch}
+                onChange={({ target }) => setSearchQuery(target.value)}
                 value={searchQuery}
               />
             </InputGroup>
@@ -149,7 +156,7 @@ const ResourcesPage = ({ data }) => {
               fontStyle='paragraph-2'
               color='#141415'
               defaultValue={sortBy}
-              onChange={handleOnChangeSortBy}
+              onChange={({ target }) => setSortBy(target.value)}
             >
               <option value='MOST_RECENT'>Most recent</option>
               <option value='LEAST_RECENT'>Least recent</option>
@@ -165,8 +172,13 @@ const ResourcesPage = ({ data }) => {
               borderColor={"#B7C2D9"}
               fontStyle='paragraph-2'
               color='#141415'
+              onChange={({ target }) => setFilterBy(target.value)}
             >
-              <option>All resources</option>
+              {types.map((t, i) => (
+                <option key={i.toString()} value={t}>
+                  {t}
+                </option>
+              ))}
             </Select>
           </FormControl>
         </Stack>
@@ -187,7 +199,7 @@ const ResourcesPage = ({ data }) => {
           mb='40px'
           width={{ lg: "1088px" }}
         >
-          {queryResults.map((resource, index) => (
+          {resourcesInView.map((resource, index) => (
             <ResourcesCard {...resource} key={index.toString()} />
           ))}
         </SimpleGrid>
@@ -213,6 +225,7 @@ export const resourcesQuery = graphql`
             linkText
             quote
             title
+            type
           }
         }
         frontmatter {
