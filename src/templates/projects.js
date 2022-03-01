@@ -13,15 +13,46 @@ import {
   Input,
 } from "@chakra-ui/react";
 import { graphql } from "gatsby";
+import * as JsSearch from "js-search";
 
 import Layout from "../components/Layout";
 import Subscription from "../components/Subscription";
 import ProjectCard from "../components/ProjectCard";
 import { AiOutlineSearch } from "react-icons/ai";
 
+const getSearch = (projects) => {
+  const search = new JsSearch.Search("id");
+  search.addIndex(["frontmatter", "title"]);
+  search.addIndex(["frontmatter", "participants"]);
+  search.addIndex(["exports", "team", "name"]);
+  search.addDocuments(projects);
+  return search;
+};
+
 const ProjectsPage = ({ data }) => {
   const { projectData } = data;
   const projects = projectData.projects;
+  const [searchQuery, setSearchQuery] = React.useState("");
+  const [search, setSearch] = React.useState([]);
+
+  React.useEffect(() => {
+    if (!projects.length) {
+      return;
+    }
+
+    const search = getSearch(projects);
+    setSearch(search);
+  }, [projects]);
+
+  const projectsInView = React.useMemo(() => {
+    let allProjects = projects;
+
+    if (searchQuery) {
+      allProjects = search.search(searchQuery);
+    }
+
+    return allProjects;
+  }, [projects, searchQuery, search]);
 
   return (
     <Layout title='Projects' activePage='projects'>
@@ -76,14 +107,14 @@ const ProjectsPage = ({ data }) => {
               />
               <Input
                 type='text'
-                placeholder='Search by project'
+                placeholder='Search by name or authors'
                 borderRadius={"100px"}
                 borderWidth={"0.5px"}
                 borderColor={"#B7C2D9"}
                 fontStyle='paragraph-2'
                 color='#141415'
-                onChange={() => {}}
-                // value={searchQuery}
+                onChange={({ target }) => setSearchQuery(target.value)}
+                value={searchQuery}
               />
             </InputGroup>
           </FormControl>
@@ -101,7 +132,7 @@ const ProjectsPage = ({ data }) => {
           w={{ lg: "1088px" }}
           justifyItems='center'
         >
-          {projects.map((project) => (
+          {projectsInView.map((project) => (
             <ProjectCard key={project.id} {...project} />
           ))}
         </SimpleGrid>
@@ -122,13 +153,18 @@ export const projectPageQuery = graphql`
       projects: nodes {
         frontmatter {
           title
-          author
+          participants
           date
           description
           path
           type
           coverImage {
             publicURL
+          }
+        }
+        exports {
+          team {
+            name
           }
         }
         id

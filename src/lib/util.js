@@ -24,3 +24,13 @@ export const sortResources = (resources, sortBy) => {
     }
   });
 };
+
+export const filterResources = (resources, filterBy) => {
+  return resources.filter((r) => {
+    if (filterBy === "All Resources") {
+      return true;
+    } else {
+      return r?.type === filterBy;
+    }
+  });
+};
