@@ -21,7 +21,7 @@ import digitalInfrastructureIllustrationLg from "../images/digital-infrastructur
 import whatIsDIIllustrationSM from "../images/what-is-DI-sm.png";
 import mozillaLogo from "../images/mozilla-logo.png";
 import omidyarNetwork from "../images/on-logo.png";
-import fordFoundation from "../images/ford-logo.jpg";
+import fordFoundation from "../images/ff-logo.png";
 import logo2 from "../images/logo-2.png";
 import openSocietyLogo from "../images/open-society-logo.png";
 import Layout from "../components/Layout";
