@@ -97,6 +97,7 @@ const theme = {
     subscriptionCard: "rgba(183, 194, 217, 0.6)",
     paleBox: "#D4DAE8",
     error: "#A32143",
+    formLabel: "#75777A",
   },
   breakpoints,
   components: {

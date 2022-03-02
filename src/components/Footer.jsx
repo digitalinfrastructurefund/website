@@ -7,13 +7,13 @@ import {
   Button,
   VStack,
   Image,
+  Link,
 } from "@chakra-ui/react";
 import { TiMicrophone, TiSocialTwitter } from "react-icons/ti";
 import { IoLogoSlack } from "react-icons/io";
 
 import ocLogo from "../images/oc-full-logo.png";
 import ccDesignLogo from "../images/cc-design.svg";
-import { Link } from "gatsby"
 
 const Footer = () => (
   <Flex px='16px' flexDir='column' alignItems='center' my='32px'>
@@ -132,7 +132,12 @@ const Footer = () => (
             alt='Website Designs on Figma'
             target='_blank'
           >
-            <Image w='144px' h='36px' src={ccDesignLogo} alt='Design available' />
+            <Image
+              w='144px'
+              h='36px'
+              src={ccDesignLogo}
+              alt='Design available'
+            />
           </Link>
         </VStack>
       </Flex>

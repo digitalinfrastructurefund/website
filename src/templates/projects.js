@@ -1,15 +1,58 @@
 import "@fontsource/urbanist";
 import * as React from "react";
-import { Box, Flex, Text, VStack, SimpleGrid } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Text,
+  VStack,
+  SimpleGrid,
+  FormControl,
+  FormLabel,
+  InputGroup,
+  InputLeftElement,
+  Input,
+} from "@chakra-ui/react";
 import { graphql } from "gatsby";
+import * as JsSearch from "js-search";
 
 import Layout from "../components/Layout";
 import Subscription from "../components/Subscription";
 import ProjectCard from "../components/ProjectCard";
+import { AiOutlineSearch } from "react-icons/ai";
+
+const getSearch = (projects) => {
+  const search = new JsSearch.Search("id");
+  search.addIndex(["frontmatter", "title"]);
+  search.addIndex(["frontmatter", "participants"]);
+  search.addIndex(["exports", "team", "name"]);
+  search.addDocuments(projects);
+  return search;
+};
 
 const ProjectsPage = ({ data }) => {
   const { projectData } = data;
   const projects = projectData.projects;
+  const [searchQuery, setSearchQuery] = React.useState("");
+  const [search, setSearch] = React.useState([]);
+
+  React.useEffect(() => {
+    if (!projects.length) {
+      return;
+    }
+
+    const search = getSearch(projects);
+    setSearch(search);
+  }, [projects]);
+
+  const projectsInView = React.useMemo(() => {
+    let allProjects = projects;
+
+    if (searchQuery) {
+      allProjects = search.search(searchQuery);
+    }
+
+    return allProjects;
+  }, [projects, searchQuery, search]);
 
   return (
     <Layout title='Projects' activePage='projects'>
@@ -46,6 +89,37 @@ const ProjectsPage = ({ data }) => {
           </VStack>
         </Box>
       </Flex>
+      <Flex
+        justifyContent={"center"}
+        alignItems={"center"}
+        my='48px'
+        px={{ base: "16px", sm: "32px" }}
+      >
+        <Box w={{ lg: "1088px" }}>
+          <FormControl maxW={{ lg: "666px" }}>
+            <FormLabel fontStyle='paragraph-2' color='formLabel' mb='8px'>
+              Search
+            </FormLabel>
+            <InputGroup>
+              <InputLeftElement
+                pointerEvents='none'
+                children={<AiOutlineSearch color='gray.300' />}
+              />
+              <Input
+                type='text'
+                placeholder='Search by name or authors'
+                borderRadius={"100px"}
+                borderWidth={"0.5px"}
+                borderColor={"#B7C2D9"}
+                fontStyle='paragraph-2'
+                color='#141415'
+                onChange={({ target }) => setSearchQuery(target.value)}
+                value={searchQuery}
+              />
+            </InputGroup>
+          </FormControl>
+        </Box>
+      </Flex>
       <Flex px={{ base: "16px", sm: "32px" }} justifyContent='center'>
         <SimpleGrid
           templateColumns={{
@@ -58,7 +132,7 @@ const ProjectsPage = ({ data }) => {
           w={{ lg: "1088px" }}
           justifyItems='center'
         >
-          {projects.map((project) => (
+          {projectsInView.map((project) => (
             <ProjectCard key={project.id} {...project} />
           ))}
         </SimpleGrid>
@@ -79,13 +153,18 @@ export const projectPageQuery = graphql`
       projects: nodes {
         frontmatter {
           title
-          author
+          participants
           date
           description
           path
           type
           coverImage {
             publicURL
+          }
+        }
+        exports {
+          team {
+            name
           }
         }
         id

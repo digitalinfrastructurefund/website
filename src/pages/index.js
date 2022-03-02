@@ -172,9 +172,9 @@ const IndexPage = ({ data }) => {
             maxW={{ md: "576px", lg: "380px" }}
           >
             <Text textStyle='paragraph-1' color='secondaryMidGray'>
-              We’re creating a community of researchers and practitioners to better
-              understand the problem and to work together toward our common
-              goal: a commons of technology, sustainably developed and
+              We’re creating a community of researchers and practitioners to
+              better understand the problem and to work together toward our
+              common goal: a commons of technology, sustainably developed and
               maintained, for the benefit of everyone.
             </Text>
             <Text textStyle='paragraph-1' color='secondaryMidGray'>
@@ -327,21 +327,46 @@ const IndexPage = ({ data }) => {
           width={{ md: "704px", lg: "1088px" }}
           justifyItems='center'
         >
-          <Link as={Link} to='https://sloan.org/' target='_blank'>
-            <Image src={logo2} h='73px' w='73px' alt='Alfred P. Sloan Foundation'/>
-          </Link>
-          <Link as={Link} to='https://www.fordfoundation.org/' target='_blank'>
-            <Image src={fordFoundation} h='73px' w='73px' alt='Ford Foundation'/>
-          </Link>
-          <Link as={Link} to='https://foundation.mozilla.org/en/' target='_blank'>
-            <Image src={mozillaLogo} h='73px' w='73px' alt='Mozilla Foundation'/>
-          </Link>
-          <Link as={Link} to='https://omidyar.com/' target='_blank'>
-            <Image src={omidyarNetwork} h='73px' w='73px' alt='Omidyar Network'/>
-          </Link>
-          <Link as={Link} to='https://www.opensocietyfoundations.org' target='_blank'>
-            <Image h='73px' w='73px' src={openSocietyLogo} alt='Open Society Foundations' />
-          </Link>
+          <ChakraLink href='https://sloan.org/' isExternal>
+            <Image
+              src={logo2}
+              h='73px'
+              w='73px'
+              alt='Alfred P. Sloan Foundation'
+            />
+          </ChakraLink>
+          <ChakraLink href='https://www.fordfoundation.org/' isExternal>
+            <Image
+              src={fordFoundation}
+              h='73px'
+              w='73px'
+              alt='Ford Foundation'
+            />
+          </ChakraLink>
+          <ChakraLink href='https://foundation.mozilla.org/en/' isExternal>
+            <Image
+              src={mozillaLogo}
+              h='73px'
+              w='73px'
+              alt='Mozilla Foundation'
+            />
+          </ChakraLink>
+          <ChakraLink href='https://omidyar.com/' isExternal>
+            <Image
+              src={omidyarNetwork}
+              h='73px'
+              w='73px'
+              alt='Omidyar Network'
+            />
+          </ChakraLink>
+          <ChakraLink href='https://www.opensocietyfoundations.org' isExternal>
+            <Image
+              h='73px'
+              w='73px'
+              src={openSocietyLogo}
+              alt='Open Society Foundations'
+            />
+          </ChakraLink>
         </SimpleGrid>
       </Flex>
       <ContactUs />
@@ -394,13 +419,7 @@ export const IndexPageQuery = graphql`
         excerpt
       }
     }
-    allIndexJson(
-      limit: 3
-      sort: {
-        fields: [date]
-        order: [DESC]
-      }
-    ) {
+    allIndexJson(limit: 3, sort: { fields: [date], order: [DESC] }) {
       eventData: edges {
         event: node {
           id
