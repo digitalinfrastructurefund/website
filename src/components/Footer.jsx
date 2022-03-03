@@ -7,7 +7,7 @@ import {
   Button,
   VStack,
   Image,
-  Link,
+  Link as ChakraLink
 } from "@chakra-ui/react";
 import { TiMicrophone, TiSocialTwitter } from "react-icons/ti";
 import { IoLogoSlack } from "react-icons/io";
@@ -65,51 +65,48 @@ const Footer = () => (
               2021 - All rights reserved
             </Text>
             <HStack spacing='12px' justifyContent='center'>
-              <Button
-                h='40px'
-                w='40px'
-                p='8px'
-                variant='outline'
-                borderRadius='100px'
-                borderColor='neutralTint-400'
-                borderWidth='1px'
-                as={Link}
-                to='https://dif.fireside.fm'
-                alt='Digital Infrastructure Fund Podcast'
-                target='_blank'
-              >
-                <TiMicrophone size='20px' color='#76777A' />
-              </Button>
-              <Button
-                h='40px'
-                w='40px'
-                p='8px'
-                variant='outline'
-                borderRadius='100px'
-                borderColor='neutralTint-400'
-                borderWidth='1px'
-                as={Link}
-                to='https://twitter.com/DigInfFund/'
-                alt='@DigInfFund'
-                target='_blank'
-              >
-                <TiSocialTwitter size='20px' color='#76777A' />
-              </Button>
-              <Button
-                h='40px'
-                w='40px'
-                p='8px'
-                variant='outline'
-                borderRadius='100px'
-                borderColor='neutralTint-400'
-                borderWidth='1px'
-                as={Link}
-                to='https://digi-infrastructure.slack.com'
-                alt='@DigInfFund'
-                target='_blank'
-              >
-                <IoLogoSlack size='20px' color='#76777A' />
-              </Button>
+              <ChakraLink href='https://dif.fireside.fm' isExternal>
+                <Button
+                  h='40px'
+                  w='40px'
+                  p='8px'
+                  variant='outline'
+                  borderRadius='100px'
+                  borderColor='neutralTint-400'
+                  borderWidth='1px'
+                  alt='Digital Infrastructure Fund Podcast'
+                >
+                  <TiMicrophone size='20px' color='#76777A' />
+                </Button>
+              </ChakraLink>
+              <ChakraLink href='https://twitter.com/DigInfFund/' isExternal>
+                <Button
+                  h='40px'
+                  w='40px'
+                  p='8px'
+                  variant='outline'
+                  borderRadius='100px'
+                  borderColor='neutralTint-400'
+                  borderWidth='1px'
+                  alt='@DigInfFund'
+                >
+                  <TiSocialTwitter size='20px' color='#76777A' />
+                </Button>
+              </ChakraLink>
+              <ChakraLink href='https://digi-infrastructure.slack.com' isExternal>
+                <Button
+                  h='40px'
+                  w='40px'
+                  p='8px'
+                  variant='outline'
+                  borderRadius='100px'
+                  borderColor='neutralTint-400'
+                  borderWidth='1px'
+                  alt='@DigInfFund'
+                >
+                  <IoLogoSlack size='20px' color='#76777A' />
+                </Button>
+              </ChakraLink>
             </HStack>
           </Box>
         </Box>
@@ -120,17 +117,15 @@ const Footer = () => (
           <Text textStyle='smallLabel' color='neutralTint'>
             Powered by:
           </Text>
-          <Link
-            to='https://opencollective.com'
-            alt='Open Collective'
-            target='_blank'
+          <ChakraLink
+            href='https://opencollective.com'
+            isExternal
           >
             <Image w='151px' h='29px' src={ocLogo} alt='Open collective logo' />
-          </Link>
-          <Link
-            to='https://www.figma.com/file/omAmFnZDmHFfWPxqOQqp4a/Digital-Infrastructure-Fund---Website?node-id=376%3A13923'
-            alt='Website Designs on Figma'
-            target='_blank'
+          </ChakraLink>
+          <ChakraLink
+            href='https://www.figma.com/file/omAmFnZDmHFfWPxqOQqp4a/Digital-Infrastructure-Fund---Website?node-id=376%3A13923'
+            isExternal
           >
             <Image
               w='144px'
@@ -138,7 +133,7 @@ const Footer = () => (
               src={ccDesignLogo}
               alt='Design available'
             />
-          </Link>
+          </ChakraLink>
         </VStack>
       </Flex>
     </Box>
