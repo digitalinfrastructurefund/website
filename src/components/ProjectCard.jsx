@@ -24,9 +24,12 @@ const ProjectCard = ({ frontmatter, excerpt, slug }) => (
       />
     )}
 
-    <Box px='24px' h='200px'>
+    <Box px='24px' h='240px'>
       <Text noOfLines={3} textStyle='subHeading' mb='12px' color='neutralTint'>
         {frontmatter.title}
+      </Text>
+      <Text noOfLines={2} textStyle='smallLabel' mb='12px' color='primaryBlue'>
+        {frontmatter.participants}
       </Text>
       <Text
         textStyle='paragraph-1'
