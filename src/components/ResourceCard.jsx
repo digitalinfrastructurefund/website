@@ -10,7 +10,7 @@ const ResourcesCard = ({ quote, author, title, link, linkText }) => (
   >
     <VStack alignItems='flex-start' spacing='16px' height='240px'>
       <Text textStyle='paragraph-1' color='primaryBlue' noOfLines={2}>
-        "{quote}”
+        {quote}
       </Text>
       <Text textStyle='subHeading' color='neutralTint' noOfLines={3}>
         {title}
