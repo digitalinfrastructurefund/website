@@ -2,7 +2,7 @@ import * as React from "react";
 import { Avatar, Text, HStack, VStack } from "@chakra-ui/react";
 import { Link } from "gatsby";
 
-const TeamMemberCard = ({ name, role, image, link }) => {
+const TeamMemberCard = ({ name, role, image, localImagePath, link }) => {
   const linkProp = {};
   if (link) {
     linkProp.to = link;
@@ -16,7 +16,7 @@ const TeamMemberCard = ({ name, role, image, link }) => {
         borderRadius='24px'
         w='104px'
         h='104px'
-        src={image}
+        src={image || localImagePath?.publicURL}
         alt={name}
         name={name}
       />
