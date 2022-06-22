@@ -58,7 +58,7 @@ const UpdatePage = ({ data }) => {
               textAlign='left'
               width={{ base: "288px", md: "704px", lg: "670px" }}
             >
-              <MDXCustomRenderer>{post.body}</MDXCustomRenderer>
+              <MDXCustomRenderer page='updates'>{post.body}</MDXCustomRenderer>
             </VStack>
           </Flex>
         </Box>
